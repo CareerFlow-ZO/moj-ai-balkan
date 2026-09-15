@@ -1,0 +1,10 @@
+{
+  "name": "MOJ AI Balkan",
+  "short_name": "MOJ AI",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#080a12",
+  "theme_color": "#090b14",
+  "description": "AI aplikacija za Balkan i dijasporu.",
+  "icons": []
+}

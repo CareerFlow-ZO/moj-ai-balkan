@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MOJ AI" />
+  <title>MOJ AI Balkan</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-nav="home" aria-label="Početna">
+        <span class="brand-mark">AI</span>
+        <span>MOJ <b>AI</b></span>
+      </button>
+      <button class="pro-pill" id="proButton">👑 PRO</button>
+    </header>
+
+    <section id="homeView" class="view active">
+      <div class="hero-card">
+        <p class="eyebrow">BALKAN I DIJASPORA</p>
+        <h1>Zdravo 👋<br><span>Šta ti danas treba?</span></h1>
+        <p class="muted">Poruke, pjesme, CV, prevod, društvene mreže i još mnogo toga.</p>
+      </div>
+
+      <div class="usage-card">
+        <div>
+          <strong id="usageLabel">5 besplatnih generisanja danas</strong>
+          <span id="usageHint">Registracija nije potrebna za demo.</span>
+        </div>
+        <div class="usage-track"><i id="usageBar"></i></div>
+      </div>
+
+      <div class="grid" id="featureGrid">
+        <button class="feature" data-type="message"><span>💗</span><b>Napiši mi poruku</b><small>Ljubavna, poslovna, izvinjenje...</small></button>
+        <button class="feature" data-type="song"><span>🎵</span><b>Napravi mi pjesmu</b><small>Ime, priča, stil i emocija</small></button>
+        <button class="feature" data-type="cv"><span>📄</span><b>CV / Molba za posao</b><small>Profesionalno i moderno</small></button>
+        <button class="feature" data-type="translate"><span>✉️</span><b>Objasni mi pismo</b><small>Slovenski, njemački, engleski...</small></button>
+        <button class="feature" data-type="social"><span>📱</span><b>TikTok / Instagram</b><small>Opis, hook i hashtagovi</small></button>
+        <button class="feature" data-type="love"><span>❤️</span><b>Ljubavni savjet</b><small>Šta odgovoriti i kako reagovati</small></button>
+      </div>
+
+      <a class="song-cta" href="https://www.ludaknakvadrat.com" target="_blank" rel="noopener">
+        <div><span>🎙️</span><strong>Želiš profesionalnu pjesmu?</strong><small>Naruči kompletnu pjesmu preko LudakNaKvadrat.com</small></div>
+        <b>→</b>
+      </a>
+    </section>
+
+    <section id="generatorView" class="view">
+      <button class="back" id="backButton">← Nazad</button>
+      <div class="generator-card">
+        <div class="generator-icon" id="generatorIcon">✨</div>
+        <p class="eyebrow" id="generatorEyebrow">MOJ AI</p>
+        <h2 id="generatorTitle">Napiši mi poruku</h2>
+        <p class="muted" id="generatorDescription">Opiši šta želiš i MOJ AI će pripremiti tekst.</p>
+
+        <label class="field-label" for="promptInput">Opiši šta želiš</label>
+        <textarea id="promptInput" rows="8" maxlength="1600" placeholder="Primjer: Napiši kratku ljubavnu poruku za dobro jutro, nježnu ali ne previše slatku."></textarea>
+        <div class="counter"><span id="charCount">0</span>/1600</div>
+
+        <div id="styleSection">
+          <label class="field-label">Stil</label>
+          <div class="chips" id="styleChips"></div>
+        </div>
+
+        <button class="primary" id="generateButton">✨ GENERIŠI</button>
+        <p class="micro" id="demoNotice">Demo trenutno koristi lokalni generator. Sljedeći korak je povezivanje pravog AI API-ja.</p>
+      </div>
+
+      <div class="result-card hidden" id="resultCard">
+        <div class="result-head">
+          <div><p class="eyebrow">REZULTAT</p><h3>Evo tvog teksta</h3></div>
+          <button id="favoriteButton" class="icon-btn" aria-label="Sačuvaj">♡</button>
+        </div>
+        <div id="resultText" class="result-text"></div>
+        <div class="result-actions">
+          <button id="copyButton">📋 Kopiraj</button>
+          <button id="shareButton">↗ Podijeli</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="historyView" class="view">
+      <div class="section-title">
+        <p class="eyebrow">MOJ AI</p>
+        <h2>Historija</h2>
+        <p class="muted">Tvoja posljednja generisanja ostaju sačuvana na ovom uređaju.</p>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+
+    <section id="favoritesView" class="view">
+      <div class="section-title">
+        <p class="eyebrow">MOJ AI</p>
+        <h2>Sačuvano</h2>
+        <p class="muted">Tekstovi koje označiš srcem.</p>
+      </div>
+      <div id="favoritesList" class="history-list"></div>
+    </section>
+
+    <section id="profileView" class="view">
+      <div class="profile-card">
+        <div class="profile-logo">AI</div>
+        <h2>MOJ AI Balkan</h2>
+        <p class="muted">Tvoj digitalni pomoćnik na tvom jeziku.</p>
+
+        <div class="plan-card">
+          <p class="eyebrow">TRENUTNI PLAN</p>
+          <h3>BESPLATNO <span>0 €</span></h3>
+          <ul>
+            <li>✓ 5 generisanja dnevno</li>
+            <li>✓ Sve osnovne funkcije</li>
+            <li>✓ Lokalna historija</li>
+          </ul>
+          <button class="primary" id="profileProButton">👑 Pogledaj PRO</button>
+        </div>
+
+        <div class="settings-block">
+          <div><b>Jezik</b><span>Bosanski / Srpski / Hrvatski</span></div>
+          <div><b>Verzija</b><span>0.1 MVP</span></div>
+          <div><b>Powered by</b><a href="https://www.ludaknakvadrat.com" target="_blank" rel="noopener">LudakNaKvadrat.com</a></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav active" data-nav="home"><span>⌂</span><small>Početna</small></button>
+      <button class="nav" data-nav="history"><span>◷</span><small>Historija</small></button>
+      <button class="nav nav-main" data-nav="home"><span>＋</span></button>
+      <button class="nav" data-nav="favorites"><span>♡</span><small>Sačuvano</small></button>
+      <button class="nav" data-nav="profile"><span>◎</span><small>Profil</small></button>
+    </nav>
+  </main>
+
+  <div class="modal hidden" id="proModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal">×</button>
+      <span class="crown">👑</span>
+      <p class="eyebrow">MOJ AI PRO</p>
+      <h2>Otključaj puni potencijal</h2>
+      <div class="price">4,99 € <small>/ mjesečno</small></div>
+      <ul class="pro-list">
+        <li>✓ Više AI generisanja</li>
+        <li>✓ Duži i kvalitetniji odgovori</li>
+        <li>✓ Prioritetne nove funkcije</li>
+        <li>✓ Popust na profesionalne pjesme</li>
+      </ul>
+      <button class="primary" id="fakeCheckout">Nastavi na plaćanje</button>
+      <p class="micro">Stripe povezujemo u narednom koraku.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
