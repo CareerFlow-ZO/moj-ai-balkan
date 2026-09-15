@@ -1,17 +1,126 @@
+// ==========================================
+// MOJ AI BALKAN - FRONTEND
+// Auth + usage + generator + history
+// ==========================================
+
 const featureConfig = {
-  message: { icon:"💗", eyebrow:"PORUKE", title:"Napiši mi poruku", description:"Ljubavna, poslovna, izvinjenje, čestitka ili odgovor na poruku.", styles:["Nježna","Direktna","Romantična","Smiješna","Formalna"] },
-  song: { icon:"🎵", eyebrow:"PJESME", title:"Napravi mi pjesmu", description:"Opiši osobu, priču i emociju. MOJ AI će napraviti tekst pjesme.", styles:["Balkan","Pop","Rap","Tužna","Vesela","Turski stil"] },
-  cv: { icon:"📄", eyebrow:"POSAO", title:"CV / Molba za posao", description:"Pretvori svoje iskustvo u profesionalan tekst za CV ili prijavu.", styles:["CV opis","Molba","Email prijava","Kratko","Profesionalno"] },
-  translate: { icon:"✉️", eyebrow:"PREVOD", title:"Objasni mi pismo", description:"Zalijepi tekst pisma i dobićeš jednostavno objašnjenje na svom jeziku.", styles:["Jednostavno","Detaljno","Prevedi","Šta trebam uraditi"] },
-  social: { icon:"📱", eyebrow:"DRUŠTVENE MREŽE", title:"TikTok / Instagram", description:"Napravi opis, hook, CTA i hashtagove za objavu.", styles:["TikTok","Instagram","YouTube","Viralno","Profesionalno"] },
-  love: { icon:"❤️", eyebrow:"LJUBAV", title:"Ljubavni savjet", description:"Opiši situaciju ili poruku koju si dobio i dobićeš prijedlog odgovora.", styles:["Smireno","Flert","Direktno","Pomirljivo","Samouvjereno"] }
+  message: {
+    icon: "💗",
+    eyebrow: "PORUKE",
+    title: "Napiši mi poruku",
+    description:
+      "Ljubavna, poslovna, izvinjenje, čestitka ili odgovor na poruku.",
+    styles: [
+      "Nježna",
+      "Direktna",
+      "Romantična",
+      "Smiješna",
+      "Formalna"
+    ]
+  },
+
+  song: {
+    icon: "🎵",
+    eyebrow: "PJESME",
+    title: "Napravi mi pjesmu",
+    description:
+      "Opiši osobu, priču i emociju. MOJ AI će napraviti tekst pjesme.",
+    styles: [
+      "Balkan",
+      "Pop",
+      "Rap",
+      "Tužna",
+      "Vesela",
+      "Turski stil"
+    ]
+  },
+
+  cv: {
+    icon: "📄",
+    eyebrow: "POSAO",
+    title: "CV / Molba za posao",
+    description:
+      "Pretvori svoje iskustvo u profesionalan tekst za CV ili prijavu.",
+    styles: [
+      "CV opis",
+      "Molba",
+      "Email prijava",
+      "Kratko",
+      "Profesionalno"
+    ]
+  },
+
+  translate: {
+    icon: "✉️",
+    eyebrow: "PREVOD",
+    title: "Objasni mi pismo",
+    description:
+      "Zalijepi tekst pisma i dobićeš jednostavno objašnjenje.",
+    styles: [
+      "Jednostavno",
+      "Detaljno",
+      "Prevedi",
+      "Šta trebam uraditi"
+    ]
+  },
+
+  social: {
+    icon: "📱",
+    eyebrow: "DRUŠTVENE MREŽE",
+    title: "TikTok / Instagram",
+    description:
+      "Napravi opis, hook, CTA i hashtagove za objavu.",
+    styles: [
+      "TikTok",
+      "Instagram",
+      "YouTube",
+      "Viralno",
+      "Profesionalno"
+    ]
+  },
+
+  love: {
+    icon: "❤️",
+    eyebrow: "LJUBAV",
+    title: "Ljubavni savjet",
+    description:
+      "Opiši situaciju ili poruku i dobićeš prijedlog odgovora.",
+    styles: [
+      "Smireno",
+      "Flert",
+      "Direktno",
+      "Pomirljivo",
+      "Samouvjereno"
+    ]
+  }
 };
+
+
+// ==========================================
+// STATE
+// ==========================================
 
 let currentType = "message";
 let selectedStyle = "";
 let currentResult = null;
 
-const $ = id => document.getElementById(id);
+let usageState = {
+  plan: "free",
+  limit: 5,
+  used: 0,
+  remaining: 5,
+  loaded: false
+};
+
+
+// ==========================================
+// HELPERS
+// ==========================================
+
+const $ = id =>
+  document.getElementById(id);
+
+
 const views = {
   home: $("homeView"),
   generator: $("generatorView"),
@@ -20,177 +129,1294 @@ const views = {
   profile: $("profileView")
 };
 
-function todayKey(){
-  const d = new Date();
-  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+
+function escapeHtml(value) {
+  return String(value).replace(
+    /[&<>"']/g,
+    character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]
+  );
 }
-function getUsage(){
-  const data = JSON.parse(localStorage.getItem("mojai_usage") || "{}");
-  return data.date === todayKey() ? data.count : 0;
+
+
+// ==========================================
+// NAVIGATION
+// ==========================================
+
+function nav(name) {
+
+  Object.values(views).forEach(view => {
+    view.classList.remove("active");
+  });
+
+
+  if (views[name]) {
+    views[name].classList.add("active");
+  }
+
+
+  document
+    .querySelectorAll(".nav")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.nav === name
+      );
+    });
+
+
+  if (name === "history") {
+    renderHistory();
+  }
+
+
+  if (name === "favorites") {
+    renderFavorites();
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
-function setUsage(count){
-  localStorage.setItem("mojai_usage", JSON.stringify({date:todayKey(), count}));
+
+
+document
+  .querySelectorAll("[data-nav]")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => nav(button.dataset.nav)
+    );
+  });
+
+
+// ==========================================
+// SUPABASE SESSION
+// ==========================================
+
+async function getSession() {
+
+  try {
+
+    if (!window.sb) {
+      return null;
+    }
+
+
+    const {
+      data: { session }
+    } =
+      await window.sb.auth.getSession();
+
+
+    return session || null;
+
+  } catch (error) {
+
+    console.error(
+      "Session error:",
+      error
+    );
+
+    return null;
+  }
+}
+
+
+// ==========================================
+// USAGE UI
+// ==========================================
+
+function renderUsage() {
+
+  const usageLabel =
+    $("usageLabel");
+
+  const usageHint =
+    $("usageHint");
+
+  const usageBar =
+    $("usageBar");
+
+
+  if (!usageState.loaded) {
+
+    if (usageLabel) {
+      usageLabel.textContent =
+        "Provjeravam dnevni limit...";
+    }
+
+    if (usageBar) {
+      usageBar.style.width = "0%";
+    }
+
+    return;
+  }
+
+
+  const {
+    plan,
+    limit,
+    remaining
+  } = usageState;
+
+
+  if (usageLabel) {
+
+    if (plan === "pro") {
+
+      usageLabel.textContent =
+        `${remaining} PRO generisanja danas`;
+
+    } else {
+
+      usageLabel.textContent =
+        `${remaining} besplatnih generisanja danas`;
+    }
+  }
+
+
+  if (usageBar) {
+
+    const percentage =
+      limit > 0
+        ? Math.max(
+            0,
+            Math.min(
+              100,
+              (remaining / limit) * 100
+            )
+          )
+        : 0;
+
+    usageBar.style.width =
+      `${percentage}%`;
+  }
+
+
+  if (usageHint) {
+
+    usageHint.textContent =
+      plan === "pro"
+        ? "👑 MOJ AI PRO"
+        : "FREE plan";
+  }
+
+
+  updatePlanCard();
+}
+
+
+// ==========================================
+// PROFILE PLAN CARD
+// ==========================================
+
+function updatePlanCard() {
+
+  const planCard =
+    document.querySelector(
+      ".plan-card"
+    );
+
+  if (!planCard) {
+    return;
+  }
+
+
+  const title =
+    planCard.querySelector("h3");
+
+  const list =
+    planCard.querySelector("ul");
+
+  const button =
+    $("profileProButton");
+
+
+  if (usageState.plan === "pro") {
+
+    if (title) {
+      title.innerHTML =
+        `MOJ AI PRO <span>AKTIVAN</span>`;
+    }
+
+
+    if (list) {
+
+      list.innerHTML = `
+        <li>✓ Do ${usageState.limit} generisanja dnevno</li>
+        <li>✓ Sve AI funkcije</li>
+        <li>✓ Historija i sačuvani tekstovi</li>
+        <li>✓ PRO pogodnosti</li>
+      `;
+    }
+
+
+    if (button) {
+
+      button.textContent =
+        "👑 PRO AKTIVAN";
+
+      button.disabled = true;
+    }
+
+  } else {
+
+    if (title) {
+      title.innerHTML =
+        `BESPLATNO <span>0 €</span>`;
+    }
+
+
+    if (list) {
+
+      list.innerHTML = `
+        <li>✓ 5 generisanja dnevno</li>
+        <li>✓ Sve osnovne funkcije</li>
+        <li>✓ Lokalna historija</li>
+      `;
+    }
+
+
+    if (button) {
+
+      button.textContent =
+        "👑 Pogledaj PRO";
+
+      button.disabled = false;
+    }
+  }
+}
+
+
+// ==========================================
+// LOAD USAGE FROM SERVER
+// ==========================================
+
+async function refreshUsage() {
+
   renderUsage();
-}
-function renderUsage(){
-  const used = getUsage(), left = Math.max(0, 5-used);
-  $("usageLabel").textContent = `${left} besplatnih generisanja danas`;
-  $("usageBar").style.width = `${(left/5)*100}%`;
+
+
+  const session =
+    await getSession();
+
+
+  if (!session?.access_token) {
+
+    usageState = {
+      plan: "free",
+      limit: 5,
+      used: 0,
+      remaining: 5,
+      loaded: false
+    };
+
+
+    if ($("usageLabel")) {
+      $("usageLabel").textContent =
+        "Prijavi se za korištenje";
+    }
+
+
+    if ($("usageHint")) {
+      $("usageHint").textContent =
+        "MOJ AI Balkan";
+    }
+
+
+    if ($("usageBar")) {
+      $("usageBar").style.width =
+        "0%";
+    }
+
+
+    return null;
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/generate",
+        {
+          method: "GET",
+
+          headers: {
+            Authorization:
+              `Bearer ${session.access_token}`
+          }
+        }
+      );
+
+
+    const data =
+      await response
+        .json()
+        .catch(() => ({}));
+
+
+    if (!response.ok) {
+
+      console.error(
+        "Usage API error:",
+        data
+      );
+
+
+      if (
+        response.status === 401 &&
+        typeof showAuth === "function"
+      ) {
+        showAuth();
+      }
+
+
+      return null;
+    }
+
+
+    usageState = {
+      plan:
+        data.plan || "free",
+
+      limit:
+        Number(data.limit || 5),
+
+      used:
+        Number(data.used || 0),
+
+      remaining:
+        Number(
+          data.remaining ?? 5
+        ),
+
+      loaded: true
+    };
+
+
+    renderUsage();
+
+    return usageState;
+
+  } catch (error) {
+
+    console.error(
+      "Usage request failed:",
+      error
+    );
+
+    return null;
+  }
 }
 
-function nav(name){
-  Object.values(views).forEach(v=>v.classList.remove("active"));
-  views[name].classList.add("active");
-  document.querySelectorAll(".nav").forEach(b=>b.classList.toggle("active", b.dataset.nav===name));
-  if(name==="history") renderHistory();
-  if(name==="favorites") renderFavorites();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
 
-document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>nav(b.dataset.nav)));
-document.querySelectorAll(".feature").forEach(b=>b.addEventListener("click",()=>openGenerator(b.dataset.type)));
-$("backButton").addEventListener("click",()=>nav("home"));
+window.refreshUsage =
+  refreshUsage;
 
-function openGenerator(type){
-  currentType=type;
-  const c=featureConfig[type];
-  $("generatorIcon").textContent=c.icon;
-  $("generatorEyebrow").textContent=c.eyebrow;
-  $("generatorTitle").textContent=c.title;
-  $("generatorDescription").textContent=c.description;
-  $("promptInput").value="";
-  $("charCount").textContent="0";
-  $("resultCard").classList.add("hidden");
-  currentResult=null;
-  selectedStyle=c.styles[0];
-  $("styleChips").innerHTML=c.styles.map((s,i)=>`<button class="chip ${i===0?"active":""}" data-style="${s}">${s}</button>`).join("");
-  document.querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
-    document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
-    ch.classList.add("active"); selectedStyle=ch.dataset.style;
-  }));
+
+// ==========================================
+// FEATURES
+// ==========================================
+
+document
+  .querySelectorAll(".feature")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () =>
+        openGenerator(
+          button.dataset.type
+        )
+    );
+  });
+
+
+$("backButton")
+  ?.addEventListener(
+    "click",
+    () => nav("home")
+  );
+
+
+function openGenerator(type) {
+
+  currentType = type;
+
+
+  const config =
+    featureConfig[type];
+
+
+  if (!config) {
+    return;
+  }
+
+
+  $("generatorIcon").textContent =
+    config.icon;
+
+  $("generatorEyebrow").textContent =
+    config.eyebrow;
+
+  $("generatorTitle").textContent =
+    config.title;
+
+  $("generatorDescription").textContent =
+    config.description;
+
+
+  $("promptInput").value = "";
+
+  $("charCount").textContent = "0";
+
+  $("resultCard")
+    .classList
+    .add("hidden");
+
+
+  currentResult = null;
+
+  selectedStyle =
+    config.styles[0];
+
+
+  $("styleChips").innerHTML =
+    config.styles
+      .map(
+        (style, index) => `
+          <button
+            class="chip ${index === 0 ? "active" : ""}"
+            data-style="${escapeHtml(style)}"
+          >
+            ${escapeHtml(style)}
+          </button>
+        `
+      )
+      .join("");
+
+
+  document
+    .querySelectorAll(".chip")
+    .forEach(chip => {
+
+      chip.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(".chip")
+            .forEach(item =>
+              item.classList.remove(
+                "active"
+              )
+            );
+
+
+          chip.classList.add(
+            "active"
+          );
+
+
+          selectedStyle =
+            chip.dataset.style;
+        }
+      );
+    });
+
+
   nav("generator");
 }
 
-$("promptInput").addEventListener("input",e=>$("charCount").textContent=e.target.value.length);
 
-function localGenerate(type, prompt, style){
-  const p = prompt.trim();
-  if(type==="message"){
-    return `${style} verzija:\n\n${style==="Formalna" ? "Poštovani," : "Hej,"}\n\n${p ? `Želim ti reći nešto vezano za ovo: ${p}` : "Želim ti napisati nešto iskreno."}\n\nNeke stvari je teško reći savršeno, ali mi je važno da znaš da govorim iskreno i od srca. Nadam se da ćemo se razumjeti i da ćemo sve riješiti na najbolji način.`;
-  }
-  if(type==="song"){
-    return `[STROFA 1]\n${p || "Noć nosi priču koju srce pamti,"}\nsvaki korak vodi tamo gdje si ti.\nI kada šutim, sve u meni govori,\nono što je pravo nikad ne izgori.\n\n[REFREN]\nJoš te nosim ispod kože,\ni kad kažu da ne može.\nNeka cijeli svijet se sruši,\nti si pjesma u mojoj duši.\n\n[STROFA 2]\nVrijeme prolazi, ali trag ostaje,\nsrce kad zavoli ne pita koliko traje.\n\nStil: ${style}`;
-  }
-  if(type==="cv"){
-    return `Profesionalna verzija (${style}):\n\nMotivisana i odgovorna osoba sa praktičnim iskustvom i snažnom radnom etikom. Brzo učim, pouzdan/a sam u izvršavanju zadataka i dobro funkcionišem samostalno i u timu.\n\nNa osnovu unosa:\n${p || "Dodaj svoje iskustvo, poziciju i glavne vještine."}\n\nSpreman/na sam da svoje iskustvo i energiju doprinesem novom timu i daljem profesionalnom razvoju.`;
-  }
-  if(type==="translate"){
-    return `Jednostavno objašnjenje:\n\n${p || "Zalijepi tekst pisma ovdje."}\n\nOvaj tekst treba prevesti/objasniti običnim jezikom. U pravoj AI verziji aplikacije ovdje ćeš dobiti: 1) šta pismo znači, 2) šta se od tebe traži i 3) do kojeg roka treba reagovati.`;
-  }
-  if(type==="social"){
-    return `🔥 HOOK:\nNemoj preskočiti ovo — možda je baš za tebe.\n\n📱 OPIS:\n${p || "Ovdje ide tvoja tema."}\nNapravili smo nešto posebno. Ako ti se sviđa, sačuvaj, podijeli i napiši mišljenje u komentar.\n\n#balkan #fyp #viral #tiktokbalkan #mojai\n\nStil: ${style}`;
-  }
-  return `Prijedlog odgovora (${style}):\n\n„Razumijem šta želiš reći. Ne želim praviti dramu, ali želim biti iskren/a. ${p ? "Što se tiče toga što si napisao/la — " + p : ""} hajde da razgovaramo normalno i vidimo gdje stvarno stojimo.“\n\nSavjet: odgovori kratko, bez previše objašnjavanja i nemoj slati više poruka zaredom.`;
-}
+// ==========================================
+// CHARACTER COUNT
+// ==========================================
 
-$("generateButton").addEventListener("click", async ()=>{
-  const prompt=$("promptInput").value.trim();
-  if(!prompt){ $("promptInput").focus(); return; }
-  if(getUsage()>=5){ openPro(); return; }
+$("promptInput")
+  ?.addEventListener(
+    "input",
+    event => {
 
-  const btn=$("generateButton");
-  btn.disabled=true; btn.textContent="Generišem...";
-  try{
-    // Kada dodamo backend, frontend će prvo pokušati pravi AI endpoint.
-  const res = await fetch("/api/generate", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    type: currentType,
-    prompt,
-    style: selectedStyle
-  })
-});
+      $("charCount").textContent =
+        event.target.value.length;
+    }
+  );
 
-const data = await res.json().catch(() => ({}));
 
-if (!res.ok || !data.text) {
+// ==========================================
+// SHOW API ERROR
+// ==========================================
+
+function showResultMessage(
+  message
+) {
+
   $("resultText").textContent =
-    data.error || "AI trenutno nije dostupan. Pokušaj ponovo.";
-  $("resultCard").classList.remove("hidden");
-  return;
+    message;
+
+  $("resultCard")
+    .classList
+    .remove("hidden");
+
+
+  setTimeout(
+    () => {
+
+      $("resultCard")
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+    },
+    50
+  );
 }
 
-const text = data.text.trim();
 
-    currentResult={id:Date.now(),type:currentType,style:selectedStyle,prompt,text,createdAt:new Date().toISOString(),favorite:false};
-    $("resultText").textContent=text;
-    $("resultCard").classList.remove("hidden");
-    saveHistory(currentResult);
-    setUsage(getUsage()+1);
-    $("favoriteButton").classList.remove("active");
-    $("favoriteButton").textContent="♡";
-    setTimeout(()=>$("resultCard").scrollIntoView({behavior:"smooth",block:"start"}),50);
-  }finally{
-    btn.disabled=false; btn.textContent="✨ GENERIŠI";
+// ==========================================
+// GENERATE AI
+// ==========================================
+
+$("generateButton")
+  ?.addEventListener(
+    "click",
+    async () => {
+
+      const prompt =
+        $("promptInput")
+          .value
+          .trim();
+
+
+      if (!prompt) {
+
+        $("promptInput").focus();
+
+        return;
+      }
+
+
+      const session =
+        await getSession();
+
+
+      if (!session?.access_token) {
+
+        if (
+          typeof showAuth ===
+          "function"
+        ) {
+          showAuth();
+        }
+
+        return;
+      }
+
+
+      const button =
+        $("generateButton");
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "✨ GENERIŠEM...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/generate",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+
+                Authorization:
+                  `Bearer ${session.access_token}`
+              },
+
+              body:
+                JSON.stringify({
+                  type:
+                    currentType,
+
+                  prompt,
+
+                  style:
+                    selectedStyle
+                })
+            }
+          );
+
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+
+        // SESSION EXPIRED
+
+        if (response.status === 401) {
+
+          showResultMessage(
+            data.error ||
+            "Sesija je istekla. Prijavi se ponovo."
+          );
+
+
+          if (
+            typeof showAuth ===
+            "function"
+          ) {
+            showAuth();
+          }
+
+
+          return;
+        }
+
+
+        // DAILY LIMIT
+
+        if (response.status === 429) {
+
+          if (
+            data.plan ||
+            data.limit
+          ) {
+
+            usageState = {
+              plan:
+                data.plan ||
+                usageState.plan,
+
+              limit:
+                Number(
+                  data.limit ||
+                  usageState.limit
+                ),
+
+              used:
+                Number(
+                  data.used ||
+                  usageState.used
+                ),
+
+              remaining: 0,
+
+              loaded: true
+            };
+
+
+            renderUsage();
+          }
+
+
+          showResultMessage(
+            data.error ||
+            "Dostigao si današnji limit."
+          );
+
+
+          if (
+            usageState.plan ===
+            "free"
+          ) {
+
+            setTimeout(
+              () => openPro(),
+              700
+            );
+          }
+
+
+          return;
+        }
+
+
+        // OTHER ERROR
+
+        if (
+          !response.ok ||
+          !data.text
+        ) {
+
+          showResultMessage(
+            data.error ||
+            "AI trenutno nije dostupan. Pokušaj ponovo."
+          );
+
+          return;
+        }
+
+
+        // SUCCESS
+
+        const text =
+          data.text.trim();
+
+
+        currentResult = {
+          id: Date.now(),
+
+          type:
+            currentType,
+
+          style:
+            selectedStyle,
+
+          prompt,
+
+          text,
+
+          createdAt:
+            new Date()
+              .toISOString(),
+
+          favorite: false
+        };
+
+
+        $("resultText")
+          .textContent =
+          text;
+
+
+        $("resultCard")
+          .classList
+          .remove("hidden");
+
+
+        saveHistory(
+          currentResult
+        );
+
+
+        $("favoriteButton")
+          .classList
+          .remove("active");
+
+
+        $("favoriteButton")
+          .textContent =
+          "♡";
+
+
+        // UPDATE REAL SERVER USAGE
+
+        usageState = {
+          plan:
+            data.plan ||
+            "free",
+
+          limit:
+            Number(
+              data.limit || 5
+            ),
+
+          used:
+            Number(
+              data.used || 0
+            ),
+
+          remaining:
+            Number(
+              data.remaining ?? 0
+            ),
+
+          loaded: true
+        };
+
+
+        renderUsage();
+
+
+        setTimeout(
+          () => {
+
+            $("resultCard")
+              .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+
+          },
+          50
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Generate error:",
+          error
+        );
+
+
+        showResultMessage(
+          "Nema veze sa serverom. Pokušaj ponovo."
+        );
+
+
+      } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+          "✨ GENERIŠI";
+      }
+    }
+  );
+
+
+// ==========================================
+// HISTORY
+// ==========================================
+
+function getHistory() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(
+        "mojai_history"
+      ) || "[]"
+    );
+
+  } catch {
+
+    return [];
   }
-});
+}
 
-function getHistory(){ return JSON.parse(localStorage.getItem("mojai_history")||"[]"); }
-function saveHistory(item){
-  const all=getHistory();
-  all.unshift(item);
-  localStorage.setItem("mojai_history",JSON.stringify(all.slice(0,30)));
-}
-function updateItem(id, patch){
-  const all=getHistory().map(x=>x.id===id?{...x,...patch}:x);
-  localStorage.setItem("mojai_history",JSON.stringify(all));
-}
-function renderHistory(){
-  const all=getHistory();
-  $("historyList").innerHTML=all.length?all.map(renderItem).join(""):`<div class="empty">Još nema generisanih tekstova.</div>`;
-}
-function renderFavorites(){
-  const all=getHistory().filter(x=>x.favorite);
-  $("favoritesList").innerHTML=all.length?all.map(renderItem).join(""):`<div class="empty">Još ništa nisi sačuvao/la.</div>`;
-}
-function renderItem(x){
-  const date=new Date(x.createdAt).toLocaleString("bs-BA",{dateStyle:"short",timeStyle:"short"});
-  return `<article class="history-item"><div class="history-meta"><span>${featureConfig[x.type]?.icon||"✨"} ${featureConfig[x.type]?.title||x.type}</span><span>${date}</span></div><b>${escapeHtml(x.prompt)}</b><p>${escapeHtml(x.text)}</p></article>`;
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
 
-$("copyButton").addEventListener("click",async()=>{
-  if(!currentResult)return;
-  await navigator.clipboard.writeText(currentResult.text);
-  $("copyButton").textContent="✓ Kopirano";
-  setTimeout(()=>$("copyButton").textContent="📋 Kopiraj",1400);
-});
-$("shareButton").addEventListener("click",async()=>{
-  if(!currentResult)return;
-  if(navigator.share) await navigator.share({title:"MOJ AI",text:currentResult.text});
-  else await navigator.clipboard.writeText(currentResult.text);
-});
-$("favoriteButton").addEventListener("click",()=>{
-  if(!currentResult)return;
-  currentResult.favorite=!currentResult.favorite;
-  updateItem(currentResult.id,{favorite:currentResult.favorite});
-  $("favoriteButton").classList.toggle("active",currentResult.favorite);
-  $("favoriteButton").textContent=currentResult.favorite?"♥":"♡";
-});
+function saveHistory(item) {
 
-function openPro(){ $("proModal").classList.remove("hidden"); }
-function closePro(){ $("proModal").classList.add("hidden"); }
-$("proButton").addEventListener("click",openPro);
-$("profileProButton").addEventListener("click",openPro);
-$("closeModal").addEventListener("click",closePro);
-$("proModal").addEventListener("click",e=>{if(e.target.id==="proModal")closePro()});
-$("fakeCheckout").addEventListener("click",()=>alert("Stripe checkout dodajemo u narednom koraku."));
+  const history =
+    getHistory();
+
+
+  history.unshift(item);
+
+
+  localStorage.setItem(
+    "mojai_history",
+    JSON.stringify(
+      history.slice(0, 30)
+    )
+  );
+}
+
+
+function updateItem(
+  id,
+  patch
+) {
+
+  const history =
+    getHistory()
+      .map(item =>
+        item.id === id
+          ? {
+              ...item,
+              ...patch
+            }
+          : item
+      );
+
+
+  localStorage.setItem(
+    "mojai_history",
+    JSON.stringify(history)
+  );
+}
+
+
+function renderHistory() {
+
+  const history =
+    getHistory();
+
+
+  $("historyList").innerHTML =
+    history.length
+      ? history
+          .map(renderHistoryItem)
+          .join("")
+      : `
+        <div class="empty">
+          Još nema generisanih tekstova.
+        </div>
+      `;
+}
+
+
+function renderFavorites() {
+
+  const favorites =
+    getHistory()
+      .filter(
+        item =>
+          item.favorite
+      );
+
+
+  $("favoritesList").innerHTML =
+    favorites.length
+      ? favorites
+          .map(renderHistoryItem)
+          .join("")
+      : `
+        <div class="empty">
+          Još ništa nisi sačuvao/la.
+        </div>
+      `;
+}
+
+
+function renderHistoryItem(item) {
+
+  const date =
+    new Date(
+      item.createdAt
+    ).toLocaleString(
+      "bs-BA",
+      {
+        dateStyle:
+          "short",
+
+        timeStyle:
+          "short"
+      }
+    );
+
+
+  return `
+    <article class="history-item">
+
+      <div class="history-meta">
+
+        <span>
+          ${
+            featureConfig[
+              item.type
+            ]?.icon || "✨"
+          }
+
+          ${
+            escapeHtml(
+              featureConfig[
+                item.type
+              ]?.title ||
+              item.type
+            )
+          }
+        </span>
+
+        <span>
+          ${escapeHtml(date)}
+        </span>
+
+      </div>
+
+      <b>
+        ${escapeHtml(
+          item.prompt
+        )}
+      </b>
+
+      <p>
+        ${escapeHtml(
+          item.text
+        )}
+      </p>
+
+    </article>
+  `;
+}
+
+
+// ==========================================
+// COPY
+// ==========================================
+
+$("copyButton")
+  ?.addEventListener(
+    "click",
+    async () => {
+
+      if (!currentResult) {
+        return;
+      }
+
+
+      try {
+
+        await navigator
+          .clipboard
+          .writeText(
+            currentResult.text
+          );
+
+
+        $("copyButton")
+          .textContent =
+          "✓ Kopirano";
+
+
+        setTimeout(
+          () => {
+
+            $("copyButton")
+              .textContent =
+              "📋 Kopiraj";
+
+          },
+          1400
+        );
+
+      } catch {
+
+        alert(
+          "Nije moguće kopirati tekst."
+        );
+      }
+    }
+  );
+
+
+// ==========================================
+// SHARE
+// ==========================================
+
+$("shareButton")
+  ?.addEventListener(
+    "click",
+    async () => {
+
+      if (!currentResult) {
+        return;
+      }
+
+
+      try {
+
+        if (navigator.share) {
+
+          await navigator.share({
+            title:
+              "MOJ AI Balkan",
+
+            text:
+              currentResult.text
+          });
+
+        } else {
+
+          await navigator
+            .clipboard
+            .writeText(
+              currentResult.text
+            );
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Share cancelled:",
+          error
+        );
+      }
+    }
+  );
+
+
+// ==========================================
+// FAVORITES
+// ==========================================
+
+$("favoriteButton")
+  ?.addEventListener(
+    "click",
+    () => {
+
+      if (!currentResult) {
+        return;
+      }
+
+
+      currentResult.favorite =
+        !currentResult.favorite;
+
+
+      updateItem(
+        currentResult.id,
+        {
+          favorite:
+            currentResult.favorite
+        }
+      );
+
+
+      $("favoriteButton")
+        .classList
+        .toggle(
+          "active",
+          currentResult.favorite
+        );
+
+
+      $("favoriteButton")
+        .textContent =
+        currentResult.favorite
+          ? "♥"
+          : "♡";
+    }
+  );
+
+
+// ==========================================
+// PRO MODAL
+// ==========================================
+
+function openPro() {
+
+  $("proModal")
+    ?.classList
+    .remove("hidden");
+}
+
+
+function closePro() {
+
+  $("proModal")
+    ?.classList
+    .add("hidden");
+}
+
+
+$("proButton")
+  ?.addEventListener(
+    "click",
+    openPro
+  );
+
+
+$("profileProButton")
+  ?.addEventListener(
+    "click",
+    openPro
+  );
+
+
+$("closeModal")
+  ?.addEventListener(
+    "click",
+    closePro
+  );
+
+
+$("proModal")
+  ?.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target.id ===
+        "proModal"
+      ) {
+        closePro();
+      }
+    }
+  );
+
+
+$("fakeCheckout")
+  ?.addEventListener(
+    "click",
+    () => {
+
+      alert(
+        "PRO plaćanje povezujemo u sljedećem koraku."
+      );
+    }
+  );
+
+
+// ==========================================
+// AUTH CHANGES
+// ==========================================
+
+if (window.sb?.auth) {
+
+  window.sb.auth.onAuthStateChange(
+    () => {
+
+      setTimeout(
+        () => {
+          refreshUsage();
+        },
+        100
+      );
+    }
+  );
+}
+
+
+// ==========================================
+// INITIAL LOAD
+// ==========================================
 
 renderUsage();
 
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+setTimeout(
+  () => {
+    refreshUsage();
+  },
+  250
+);
+
+
+// ==========================================
+// SERVICE WORKER
+// ==========================================
+
+if (
+  "serviceWorker" in navigator
+) {
+
+  window.addEventListener(
+    "load",
+    () => {
+
+      navigator
+        .serviceWorker
+        .register("/sw.js")
+        .catch(error => {
+
+          console.error(
+            "Service worker error:",
+            error
+          );
+        });
+    }
+  );
 }
