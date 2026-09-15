@@ -138,7 +138,43 @@
       <button class="nav" data-nav="profile"><span>◎</span><small>Profil</small></button>
     </nav>
   </main>
+<div class="modal" id="authModal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="profile-logo">AI</div>
 
+    <p class="eyebrow">MOJ AI BALKAN</p>
+    <h2 id="authTitle">Prijavi se</h2>
+    <p class="muted" id="authSubtitle">
+      Prijavi se da koristiš svojih 5 besplatnih AI generisanja dnevno.
+    </p>
+
+    <label class="field-label" for="authEmail">Email</label>
+    <input
+      id="authEmail"
+      type="email"
+      placeholder="ime@email.com"
+      autocomplete="email"
+    />
+
+    <label class="field-label" for="authPassword">Lozinka</label>
+    <input
+      id="authPassword"
+      type="password"
+      placeholder="Najmanje 6 znakova"
+      autocomplete="current-password"
+    />
+
+    <p id="authMessage" class="micro"></p>
+
+    <button class="primary" id="authSubmitButton">
+      PRIJAVI SE
+    </button>
+
+    <button class="auth-switch" id="authSwitchButton">
+      Nemaš račun? Registruj se
+    </button>
+  </div>
+</div>
   <div class="modal hidden" id="proModal" role="dialog" aria-modal="true">
     <div class="modal-card">
       <button class="modal-close" id="closeModal">×</button>
@@ -158,6 +194,7 @@
   </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
-  <script src="app.js"></script>
+<script src="app.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
