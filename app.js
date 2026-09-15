@@ -102,15 +102,28 @@ $("generateButton").addEventListener("click", async ()=>{
   btn.disabled=true; btn.textContent="Generišem...";
   try{
     // Kada dodamo backend, frontend će prvo pokušati pravi AI endpoint.
-    let text="";
-    try{
-      const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:currentType,prompt,style:selectedStyle})});
-      if(res.ok){
-        const data=await res.json();
-        text=data.text || "";
-      }
-    }catch(e){}
-    if(!text) text=localGenerate(currentType,prompt,selectedStyle);
+  const res = await fetch("/api/generate", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    type: currentType,
+    prompt,
+    style: selectedStyle
+  })
+});
+
+const data = await res.json().catch(() => ({}));
+
+if (!res.ok || !data.text) {
+  $("resultText").textContent =
+    data.error || "AI trenutno nije dostupan. Pokušaj ponovo.";
+  $("resultCard").classList.remove("hidden");
+  return;
+}
+
+const text = data.text.trim();
 
     currentResult={id:Date.now(),type:currentType,style:selectedStyle,prompt,text,createdAt:new Date().toISOString(),favorite:false};
     $("resultText").textContent=text;
