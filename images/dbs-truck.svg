@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="t d">
+<title id="t">DBS Servis premium truck</title>
+<desc id="d">Mechanical workshop style tractor truck with DBS SERVIS branding.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#eef1f3"/>
+    <stop offset=".55" stop-color="#d3d9de"/>
+    <stop offset="1" stop-color="#aeb7bf"/>
+  </linearGradient>
+  <linearGradient id="cab" x1=".1" y1=".05" x2=".9" y2=".95">
+    <stop offset="0" stop-color="#626a73"/>
+    <stop offset=".28" stop-color="#343a42"/>
+    <stop offset=".72" stop-color="#171c22"/>
+    <stop offset="1" stop-color="#080b0f"/>
+  </linearGradient>
+  <linearGradient id="metal" x1="0" x2="1">
+    <stop offset="0" stop-color="#e5e9ec"/>
+    <stop offset=".25" stop-color="#8d98a2"/>
+    <stop offset=".5" stop-color="#f8fafb"/>
+    <stop offset=".74" stop-color="#7c8791"/>
+    <stop offset="1" stop-color="#c5ccd2"/>
+  </linearGradient>
+  <linearGradient id="red" x1="0" x2="1">
+    <stop offset="0" stop-color="#ff243e"/>
+    <stop offset=".55" stop-color="#d10822"/>
+    <stop offset="1" stop-color="#7d0010"/>
+  </linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#cfe9f5"/>
+    <stop offset=".32" stop-color="#596d79"/>
+    <stop offset="1" stop-color="#10171d"/>
+  </linearGradient>
+  <radialGradient id="wheel">
+    <stop offset="0" stop-color="#59616a"/>
+    <stop offset=".22" stop-color="#11161c"/>
+    <stop offset=".65" stop-color="#05070a"/>
+    <stop offset=".79" stop-color="#202832"/>
+    <stop offset="1" stop-color="#020304"/>
+  </radialGradient>
+  <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+    <feDropShadow dx="0" dy="35" stdDeviation="28" flood-color="#000" flood-opacity=".38"/>
+  </filter>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="8" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+
+<rect width="1400" height="900" rx="36" fill="url(#bg)"/>
+<path d="M0 725H1400V900H0z" fill="#9fa9b2" opacity=".6"/>
+<path d="M0 760H1400" stroke="#6e7882" stroke-width="3" opacity=".32"/>
+<ellipse cx="732" cy="772" rx="560" ry="72" fill="#000" opacity=".23"/>
+
+<g opacity=".16" stroke="#29313a" stroke-width="2">
+  <path d="M85 135H1315M85 245H1315M85 355H1315"/>
+  <path d="M195 70V650M415 70V650M635 70V650M855 70V650M1075 70V650"/>
+</g>
+
+<g filter="url(#shadow)" transform="translate(105 70)">
+  <!-- rear chassis -->
+  <path d="M560 540H1118l70 64v74H526z" fill="#2b3239" stroke="#0b0f13" stroke-width="7"/>
+  <path d="M634 566h430" stroke="url(#metal)" stroke-width="22" stroke-linecap="round"/>
+  <path d="M690 610h355" stroke="#59636c" stroke-width="14" stroke-linecap="round"/>
+  <rect x="760" y="520" width="175" height="58" rx="14" fill="#14191e" stroke="#555f68" stroke-width="6"/>
+  <ellipse cx="848" cy="535" rx="80" ry="21" fill="#080b0f"/>
+  <ellipse cx="848" cy="532" rx="55" ry="12" fill="#59616a"/>
+
+  <!-- cab -->
+  <path d="M225 138Q260 80 338 70h265q78 7 112 80l32 98v390H206V260z" fill="url(#cab)" stroke="#11161b" stroke-width="10"/>
+  <path d="M244 143Q280 101 348 96h232q71 5 102 56l24 72H226z" fill="#4b535c"/>
+  <path d="M239 158l-14 88h493l-24-88z" fill="url(#glass)" stroke="#111820" stroke-width="7"/>
+  <path d="M474 160v84" stroke="#202830" stroke-width="7"/>
+  <path d="M258 175l-10 52h209l5-52z" fill="#26343d" opacity=".45"/>
+  <path d="M490 175l5 52h191l-15-52z" fill="#1b2730" opacity=".42"/>
+
+  <!-- side windows -->
+  <path d="M569 270h128v118H565z" fill="url(#glass)" stroke="#111820" stroke-width="7"/>
+  <path d="M584 285h96v86h-99z" fill="#16232b" opacity=".5"/>
+
+  <!-- grille -->
+  <path d="M236 344h314v232H218z" fill="#11161b" stroke="#4d565e" stroke-width="6"/>
+  <g stroke="url(#metal)" stroke-width="13" stroke-linecap="round">
+    <path d="M254 390h278"/>
+    <path d="M246 432h289"/>
+    <path d="M238 474h296"/>
+    <path d="M230 516h291"/>
+  </g>
+
+  <!-- emblem -->
+  <circle cx="385" cy="452" r="54" fill="#11171c" stroke="#d7dce0" stroke-width="7"/>
+  <path d="M385 405v83M385 452l-39 31M385 452l40 31" stroke="#d9dde0" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- red mechanical livery -->
+  <path d="M208 300h92l76-54h178l-49 54H366l-83 72h-75z" fill="url(#red)" opacity=".98"/>
+  <path d="M548 388h174v62H525z" fill="url(#red)"/>
+  <path d="M540 475h185v44H530z" fill="#ef263d"/>
+  <path d="M551 529h170v20H545z" fill="#ff6a22"/>
+  <path d="M717 540h335l60 58H699z" fill="url(#red)" opacity=".96"/>
+  <path d="M750 562h300" stroke="#ff6a22" stroke-width="11" stroke-linecap="round"/>
+
+  <!-- bumper / lamps -->
+  <path d="M212 567h356v80H192l15-52z" fill="#171c21" stroke="#5e6872" stroke-width="6"/>
+  <rect x="226" y="590" width="76" height="29" rx="7" fill="#fff2c7" filter="url(#glow)"/>
+  <rect x="463" y="590" width="69" height="29" rx="7" fill="#f8fafb"/>
+
+  <!-- wheels -->
+  <g>
+    <circle cx="327" cy="645" r="100" fill="url(#wheel)"/>
+    <circle cx="327" cy="645" r="55" fill="#606a74"/>
+    <circle cx="327" cy="645" r="33" fill="#171d23"/>
+    <circle cx="327" cy="645" r="10" fill="#c9d0d6"/>
+    <circle cx="960" cy="645" r="92" fill="url(#wheel)"/>
+    <circle cx="960" cy="645" r="50" fill="#626c75"/>
+    <circle cx="960" cy="645" r="29" fill="#151b21"/>
+    <circle cx="1122" cy="645" r="92" fill="url(#wheel)"/>
+    <circle cx="1122" cy="645" r="50" fill="#626c75"/>
+    <circle cx="1122" cy="645" r="29" fill="#151b21"/>
+  </g>
+
+  <!-- branding -->
+  <rect x="556" y="416" width="158" height="64" rx="10" fill="#0c1015" opacity=".92"/>
+  <text x="635" y="446" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="900" letter-spacing="3">DBS</text>
+  <text x="635" y="466" text-anchor="middle" fill="#ff4052" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="900" letter-spacing="2">SERVIS</text>
+
+  <text x="818" y="596" fill="#f6f8f9" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900" letter-spacing="3">DBS SERVIS</text>
+  <text x="818" y="623" fill="#bec6cd" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="5">PREMIUM TRUCK SERVICE</text>
+
+  <!-- roof bars / mechanical detail -->
+  <rect x="300" y="44" width="310" height="24" rx="12" fill="#171c22"/>
+  <rect x="337" y="28" width="58" height="38" rx="12" fill="#0a0d10" stroke="#6e7780" stroke-width="5"/>
+  <rect x="531" y="28" width="58" height="38" rx="12" fill="#0a0d10" stroke="#6e7780" stroke-width="5"/>
+  <path d="M264 97l-34-55M640 90l31-63" stroke="#1c232a" stroke-width="10" stroke-linecap="round"/>
+</g>
+
+<g transform="translate(62 60)">
+  <rect width="270" height="54" rx="27" fill="#0b0f14" opacity=".94"/>
+  <circle cx="27" cy="27" r="8" fill="#f1273d"/>
+  <text x="49" y="34" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="900" letter-spacing="2">DBS SERVIS / READY</text>
+</g>
+
+<g transform="translate(1015 75)">
+  <path d="M0 0h270v54H0z" rx="27" fill="#11171d" opacity=".92"/>
+  <text x="135" y="34" text-anchor="middle" fill="#f1273d" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="900" letter-spacing="3">MECHANICAL EDITION</text>
+</g>
+</svg>
