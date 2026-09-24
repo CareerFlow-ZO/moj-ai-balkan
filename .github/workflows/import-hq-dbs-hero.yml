@@ -1,0 +1,35 @@
+name: Import HQ DBS hero assets
+on:
+  push:
+    paths:
+      - ".github/workflows/import-hq-dbs-hero.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  import-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Download HQ hero assets
+        env:
+          DESKTOP_URL: "https://d2jqrm6oza8nb6.cloudfront.net/datasets/d70829f3-b76e-4b2d-9a6a-bd700cf238de.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiOTQ5YzUyZDNhY2NmMjQ0OSIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc5MDQwODc4N30.4TTPD-u73kRj6r7UR41SKCUQr18trSttKDfZU6HwKOs"
+          MOBILE_URL: "https://d2jqrm6oza8nb6.cloudfront.net/datasets/33d1d45c-47f9-49e1-a7f6-9559ccf0f28f.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiODUzMjM3ZjU2ZDM3MGYyOCIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc5MDM5MjA1M30.kTXpEwsLl-Dr-ScHnWA9O88Hf0GhP3UU0fluJ1CDKek"
+        run: |
+          mkdir -p assets
+          curl --fail --location --retry 3 --output assets/dbs-openhood-desktop-hq.webp "$DESKTOP_URL"
+          curl --fail --location --retry 3 --output assets/dbs-openhood-mobile-hq.webp "$MOBILE_URL"
+          test -s assets/dbs-openhood-desktop-hq.webp
+          test -s assets/dbs-openhood-mobile-hq.webp
+          echo "Desktop bytes: $(wc -c < assets/dbs-openhood-desktop-hq.webp)"
+          echo "Mobile bytes: $(wc -c < assets/dbs-openhood-mobile-hq.webp)"
+      - name: Commit assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/dbs-openhood-desktop-hq.webp assets/dbs-openhood-mobile-hq.webp
+          git commit -m "Add HQ open-hood DBS hero assets"
+          git push origin HEAD:main
