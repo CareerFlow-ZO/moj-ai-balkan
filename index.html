@@ -13,14 +13,30 @@
     :root{--bg:#07090c;--bg2:#0b0f14;--panel:#10151c;--panel2:#161c24;--line:rgba(255,255,255,.1);--line2:rgba(255,255,255,.18);--txt:#f7f8fb;--muted:#a0a8b4;--red:#ff2238;--red2:#b9071b;--green:#20d36b;--shadow:0 30px 90px rgba(0,0,0,.55)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,rgba(255,34,56,.09),transparent 30%),linear-gradient(180deg,#06080b,#0a0e13 45%,#06080b);color:var(--txt);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;overflow-x:hidden}body.lock{overflow:hidden}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1240px,calc(100% - 36px));margin:auto}
     header{position:fixed;inset:0 0 auto;z-index:100;background:rgba(5,7,10,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;min-width:230px}.logo{position:relative;display:flex;align-items:flex-end;gap:7px;font-weight:900;letter-spacing:-.04em}.logo:before{content:"";position:absolute;left:2px;top:-10px;width:120px;height:34px;border-top:3px solid var(--red);border-radius:50%}.logo .dbs{font-size:25px;color:var(--red);font-style:italic}.logo .servis{font-size:23px;color:#fff;font-style:italic}.brand small{display:block;color:#717b87;font-size:8px;letter-spacing:.16em;font-weight:800;margin-top:4px}.links{display:flex;gap:28px;align-items:center}.links a{font-size:12px;font-weight:800;color:#c2c8d0;position:relative}.links a:hover{color:#fff}.links a:after{content:"";position:absolute;left:0;bottom:-10px;width:0;height:2px;background:var(--red);transition:.2s}.links a:hover:after{width:100%}.head-actions{display:flex;gap:10px;align-items:center}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:11px;padding:13px 17px;font-weight:900;font-size:12px;border:1px solid var(--line2);transition:.2s}.btn:hover{transform:translateY(-2px)}.btn-red{background:linear-gradient(135deg,#ff3548,#d40720);color:#fff;border-color:rgba(255,120,135,.3);box-shadow:0 15px 35px rgba(220,10,35,.25)}.btn-dark{background:rgba(10,14,19,.82);color:#fff}.menu{display:none;background:none;border:0;color:#fff;font-size:28px;padding:4px}
-    .hero{min-height:760px;padding:125px 0 56px;position:relative;overflow:hidden;display:flex;align-items:center}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,10,.99) 0%,rgba(5,7,10,.96) 32%,rgba(5,7,10,.62) 58%,rgba(5,7,10,.24) 100%),linear-gradient(180deg,transparent 65%,#07090c 100%);z-index:1}.hero:after{content:"";position:absolute;right:-120px;top:90px;width:620px;height:620px;background:radial-gradient(circle,rgba(255,34,56,.18),transparent 68%);filter:blur(12px)}.hero-media{position:absolute;inset:76px 0 0 0;z-index:0;overflow:hidden;background:#07090c}.hero-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 48%;filter:saturate(.98) contrast(1.08);transform:scale(1.01)}.hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,620px) 1fr;min-height:570px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:#d8dde4;font-size:10px;letter-spacing:.24em;font-weight:800}.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 16px var(--red)}h1{font-size:clamp(58px,6vw,92px);line-height:.93;letter-spacing:-.055em;margin:18px 0 14px;max-width:720px}.hero h1 span{display:block;color:var(--red)}.hero-sub{font-size:18px;color:#c8cdd4;margin:0 0 8px}.hero p{max-width:660px;color:#aab2bd;font-size:15px;line-height:1.75}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.hero-info{display:flex;flex-wrap:wrap;gap:22px;margin-top:30px;color:#a9b0b9;font-size:11px}.hero-info b{color:#fff}.hero-info span{display:flex;gap:8px;align-items:center}.hero-info .dot{width:8px;height:8px;border-radius:50%;background:var(--red)}
-    .quick{position:relative;z-index:4;margin-top:-18px}.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.service-card{min-height:250px;border-radius:18px;border:1px solid var(--line2);background:linear-gradient(145deg,rgba(19,25,34,.96),rgba(6,9,13,.96));padding:24px;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:.24s}.service-card:hover{transform:translateY(-5px);border-color:rgba(255,50,70,.38)}.service-card:before{content:"";position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(255,35,56,.15),transparent 68%)}.icon{width:50px;height:50px;display:grid;place-items:center;border-radius:13px;background:#121a22;border:1px solid rgba(255,255,255,.08);color:var(--red)}.icon svg{width:26px;height:26px}.service-card h3{font-size:23px;margin:26px 0 10px}.service-card p{font-size:13px;line-height:1.65;color:#9aa4af;max-width:330px}.service-card button{position:absolute;left:24px;bottom:20px;background:none;border:0;color:#fff;font-weight:900;font-size:11px;padding:0}.service-card button span{color:var(--red);margin-left:8px}
-    .integration-strip{margin:22px auto 0;border:1px solid var(--line);background:rgba(9,13,18,.85);border-radius:17px;display:grid;grid-template-columns:repeat(7,1fr);overflow:hidden}.integration-strip>div{padding:19px 14px;border-right:1px solid var(--line);min-height:112px}.integration-strip>div:last-child{border-right:0}.integration-strip b{display:block;font-size:11px;margin:8px 0 5px}.integration-strip small{color:#7d8793;font-size:9px;line-height:1.45}.mini-icon{color:var(--red);font-size:22px}.mini-icon.green{color:var(--green)}
+    .hero{min-height:760px;padding:125px 0 56px;position:relative;overflow:hidden;display:flex;align-items:center}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,10,.99) 0%,rgba(5,7,10,.96) 32%,rgba(5,7,10,.62) 58%,rgba(5,7,10,.24) 100%),linear-gradient(180deg,transparent 65%,#07090c 100%);z-index:1}.hero:after{content:"";position:absolute;right:-120px;top:90px;width:620px;height:620px;background:radial-gradient(circle,rgba(255,34,56,.18),transparent 68%);filter:blur(12px)}.hero-media{position:absolute;inset:76px 0 0 0;z-index:0;overflow:hidden;background:#07090c}.hero-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 48%;filter:saturate(.98) contrast(1.08);transform:scale(1.01)}.hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:minmax(0,620px) 1fr;min-height:570px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:#d8dde4;font-size:10px;letter-spacing:.24em;font-weight:800}.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 16px var(--red)}h1{font-size:clamp(58px,6vw,92px);line-height:.93;letter-spacing:-.055em;margin:18px 0 14px;max-width:720px}.hero h1 span{display:block;color:var(--red)}.hero-sub{font-size:18px;color:#c8cdd4;margin:0 0 8px}
+    .hero-service-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+    .hero-service-links button{appearance:none;border:0;background:transparent;color:#d7dce2;font:inherit;font-weight:800;padding:3px 0;cursor:pointer;position:relative}
+    .hero-service-links button:after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:2px;background:var(--red);transition:.2s}
+    .hero-service-links button:hover,.hero-service-links button:focus-visible{color:#fff;outline:none}
+    .hero-service-links button:hover:after,.hero-service-links button:focus-visible:after{right:0}
+    .hero-service-links span{color:var(--red);font-weight:900}.hero p{max-width:660px;color:#aab2bd;font-size:15px;line-height:1.75}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.hero-info{display:flex;flex-wrap:wrap;gap:22px;margin-top:30px;color:#a9b0b9;font-size:11px}.hero-info b{color:#fff}.hero-info span{display:flex;gap:8px;align-items:center}.hero-info .dot{width:8px;height:8px;border-radius:50%;background:var(--red)}
+    .quick{position:relative;z-index:4;margin-top:-18px}.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.service-card{min-height:250px;border-radius:18px;border:1px solid var(--line2);background:linear-gradient(145deg,rgba(19,25,34,.96),rgba(6,9,13,.96));padding:24px;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:.24s;cursor:pointer}.service-card:hover{transform:translateY(-5px);border-color:rgba(255,50,70,.38)}.service-card:before{content:"";position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(255,35,56,.15),transparent 68%)}.icon{width:50px;height:50px;display:grid;place-items:center;border-radius:13px;background:#121a22;border:1px solid rgba(255,255,255,.08);color:var(--red)}.icon svg{width:26px;height:26px}.service-card h3{font-size:23px;margin:26px 0 10px}.service-card p{font-size:13px;line-height:1.65;color:#9aa4af;max-width:330px}.service-card button{position:absolute;left:24px;bottom:20px;background:none;border:0;color:#fff;font-weight:900;font-size:11px;padding:0}.service-card button span{color:var(--red);margin-left:8px}
+    .integration-strip{margin:22px auto 0;border:1px solid var(--line);background:rgba(9,13,18,.85);border-radius:17px;display:grid;grid-template-columns:repeat(7,1fr);overflow:hidden}.integration-strip>div{padding:19px 14px;border-right:1px solid var(--line);min-height:112px}
+    .integration-option{cursor:pointer;transition:.2s;position:relative}
+    .integration-option:after{content:"TEST";position:absolute;right:9px;top:9px;font-size:6px;font-weight:900;letter-spacing:.12em;color:#ff7785;opacity:.65}
+    .integration-option:hover,.integration-option:focus-visible{background:rgba(255,34,56,.07);box-shadow:inset 0 0 0 1px rgba(255,70,88,.18);outline:none}
+    .integration-option:active{transform:scale(.985)}.integration-strip>div:last-child{border-right:0}.integration-strip b{display:block;font-size:11px;margin:8px 0 5px}.integration-strip small{color:#7d8793;font-size:9px;line-height:1.45}.mini-icon{color:var(--red);font-size:22px}.mini-icon.green{color:var(--green)}
     section{padding:88px 0}.section-head{display:grid;grid-template-columns:1fr minmax(320px,520px);gap:46px;align-items:end;margin-bottom:36px}.label{color:#ff6474;font-size:10px;font-weight:900;letter-spacing:.15em}.section-head h2,.block h2{font-size:clamp(38px,4vw,62px);line-height:1;letter-spacing:-.04em;margin:10px 0 0}.section-head p,.block p{color:#909aa6;line-height:1.75;font-size:14px;margin:0}.process{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.step{border:1px solid var(--line);border-radius:17px;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent);min-height:220px}.step .num{color:var(--red);font-size:10px;font-weight:900}.step h3{margin:50px 0 10px;font-size:19px}.step p{color:#7f8995;font-size:13px;line-height:1.6}
     .booking-area{background:linear-gradient(180deg,#080b0f,#0e141b,#07090c);border-block:1px solid rgba(255,255,255,.06)}.booking-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}.booking-panel,.vin-panel{border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#121923,#090d12);padding:28px;position:relative;overflow:hidden}.booking-panel:before,.vin-panel:before{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(255,34,56,.16),transparent 68%)}.booking-panel h3,.vin-panel h3{font-size:31px;margin:10px 0 10px}.booking-panel p,.vin-panel p{color:#8e98a4;line-height:1.65;font-size:13px}.booking-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}.booking-features div{border:1px solid var(--line);border-radius:12px;padding:13px;color:#c8ced6;font-size:11px;background:#0a0f15}.vin-box{display:flex;gap:9px;margin-top:20px}.vin-box input{flex:1}.status{margin-top:12px;min-height:20px;color:#8e98a4;font-size:11px}.status.ok{color:#50e58c}.status.bad{color:#ff6b7b}
     .contact{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.contact-card{min-height:420px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(145deg,#111821,#080c11);padding:30px}.contact-list{display:grid;gap:12px;margin-top:26px}.contact-row{display:flex;gap:14px;align-items:flex-start;padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b1016}.contact-row strong{display:block;font-size:12px}.contact-row span{display:block;color:#858f9b;font-size:11px;margin-top:4px}.map-card{min-height:420px;border-radius:24px;border:1px solid var(--line);position:relative;overflow:hidden;background:radial-gradient(circle at 60% 45%,rgba(255,34,56,.18),transparent 14%),repeating-linear-gradient(30deg,rgba(255,255,255,.04) 0 1px,transparent 1px 42px),repeating-linear-gradient(-35deg,rgba(255,255,255,.03) 0 1px,transparent 1px 48px),#0a0f15;display:flex;align-items:flex-end;padding:28px}.pin{position:absolute;left:58%;top:45%;width:26px;height:26px;border-radius:50% 50% 50% 0;background:var(--red);transform:rotate(-45deg);box-shadow:0 0 0 8px rgba(255,34,56,.12)}.pin:after{content:"";position:absolute;left:8px;top:8px;width:10px;height:10px;border-radius:50%;background:#fff}.map-copy{position:relative;z-index:2;background:rgba(7,9,12,.88);padding:18px;border-radius:14px;border:1px solid var(--line);width:min(360px,100%)}
     .faq{display:grid;gap:10px}.faq-item{border:1px solid var(--line);border-radius:13px;background:#0b1016;overflow:hidden}.faq-q{width:100%;text-align:left;background:none;border:0;color:#fff;padding:18px 20px;display:flex;justify-content:space-between;gap:20px;font-weight:800}.faq-a{display:none;padding:0 20px 18px;color:#89939f;font-size:13px;line-height:1.65}.faq-item.open .faq-a{display:block}.faq-item.open .faq-q span:last-child{transform:rotate(45deg)}
     footer{border-top:1px solid var(--line);padding:35px 0 90px;color:#747f8b}.foot{display:flex;justify-content:space-between;gap:20px;align-items:center}.foot b{color:#fff}.mobile-cta{display:none;position:fixed;z-index:110;left:12px;right:12px;bottom:12px;background:linear-gradient(135deg,#ff3548,#c4071d);border:1px solid rgba(255,255,255,.18);box-shadow:0 18px 50px rgba(0,0,0,.5);border-radius:14px;padding:14px;color:#fff;font-weight:900;text-align:center}
+    .feature-card{width:min(560px,100%)}
+    .feature-body{padding:30px}
+    .feature-icon{width:62px;height:62px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(145deg,#1a222c,#090d12);border:1px solid rgba(255,255,255,.1);color:var(--red);font-size:28px;margin-bottom:20px}
+    .feature-body p{color:#9aa4af;line-height:1.7;margin:0 0 22px}
+    .demo-toast{position:fixed;z-index:260;left:50%;bottom:26px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#10161e;border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 55px rgba(0,0,0,.55);border-radius:12px;padding:12px 16px;color:#fff;font-size:11px;font-weight:800;transition:.25s;max-width:min(90vw,520px);text-align:center}
+    .demo-toast.show{opacity:1;transform:translate(-50%,0)}
     input,select,textarea{width:100%;border:1px solid rgba(255,255,255,.12);background:#080d13;color:#fff;padding:13px 14px;border-radius:11px;outline:none}input:focus,select:focus,textarea:focus{border-color:#ff5969;box-shadow:0 0 0 3px rgba(255,34,56,.1)}textarea{min-height:125px;resize:vertical}.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.backdrop{position:absolute;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px)}.modal-card{position:relative;z-index:2;width:min(940px,100%);max-height:92vh;overflow:auto;border-radius:24px;background:linear-gradient(145deg,#111821,#080c11);border:1px solid rgba(255,255,255,.13);box-shadow:0 35px 120px rgba(0,0,0,.72)}.modal-head{position:sticky;top:0;z-index:4;display:flex;align-items:center;justify-content:space-between;padding:20px 22px;background:rgba(12,17,23,.96);border-bottom:1px solid var(--line)}.modal-head h3{margin:4px 0 0;font-size:26px}.close{width:42px;height:42px;border-radius:11px;border:1px solid var(--line2);background:#080d13;color:#fff;font-size:22px}.form{padding:22px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.form-grid .full{grid-column:1/-1}label{display:grid;gap:7px;color:#9aa4af;font-size:10px;font-weight:800}.form-actions{display:flex;gap:10px;margin-top:18px}.form-actions>*{flex:1}.notice{font-size:9px;color:#6f7a86;margin-top:12px;line-height:1.5}
     @media(max-width:1000px){.links{display:none}.menu{display:block}.head-actions .btn-dark{display:none}.links.open{display:flex;position:absolute;top:76px;left:18px;right:18px;flex-direction:column;align-items:flex-start;background:#0b1016;border:1px solid var(--line);border-radius:14px;padding:18px}.hero-media{inset:76px 0 0 0}.hero-media img{object-position:58% center}.hero-grid{grid-template-columns:1fr}.hero:before{background:linear-gradient(90deg,rgba(5,7,10,.98) 0%,rgba(5,7,10,.92) 50%,rgba(5,7,10,.55) 100%),linear-gradient(180deg,transparent 65%,#07090c 100%)}.integration-strip{grid-template-columns:repeat(4,1fr)}.quick-grid{grid-template-columns:1fr 1fr}.section-head,.booking-grid,.contact{grid-template-columns:1fr}.process{grid-template-columns:1fr 1fr}}
     @media(max-width:680px){
@@ -47,6 +63,8 @@
       .eyebrow{font-size:7.7px;letter-spacing:.14em;text-shadow:0 2px 12px #000}
       h1{font-size:clamp(43px,13vw,58px);line-height:.91;margin:14px 0 12px;text-shadow:0 4px 24px rgba(0,0,0,.78)}
       .hero-sub{font-size:14px;font-weight:700;text-shadow:0 2px 12px #000}
+      .hero-service-links{gap:6px 7px}
+      .hero-service-links button{font-size:12px;padding:5px 0}
       .hero p{font-size:12.5px;line-height:1.6;max-width:95%;text-shadow:0 2px 12px rgba(0,0,0,.9)}
       .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
       .hero-actions>*{width:100%;min-height:48px;padding:11px 8px;font-size:9.5px}
@@ -109,7 +127,15 @@
 <section class="hero" id="domov"><div class="hero-media" aria-hidden="true"><img src="/assets/hero-truck-mobile.webp?v=4" alt="" width="860" height="380" loading="eager" decoding="async" fetchpriority="high"></div><div class="wrap hero-grid"><div>
   <div class="eyebrow"><i></i> PROFESIONALNO • STROKOVNO • ZANESLJIVO</div>
   <h1>ZANESLJIV SERVIS <span>ZA VAŠ VOZNI PARK</span></h1>
-  <div class="hero-sub">Diagnostika • Servis • Vzdrževanje • Popravila</div>
+  <div class="hero-sub hero-service-links" aria-label="Hitre storitve">
+  <button type="button" data-open="Servisno povpraševanje" data-service="Diagnostika / popravilo">Diagnostika</button>
+  <span>•</span>
+  <button type="button" data-open="Rezervacija termina" data-service="Redni servis">Servis</button>
+  <span>•</span>
+  <button type="button" data-open="Rezervacija termina" data-service="Vzdrževanje">Vzdrževanje</button>
+  <span>•</span>
+  <button type="button" data-open="Servisno povpraševanje" data-service="Diagnostika / popravilo">Popravila</button>
+</div>
   <p>DBS Servis D.O.O. za gospodarska vozila, tovornjake, kombije in prikolice. Hiter sprejem vozila, jasna komunikacija ter digitalno povpraševanje z VIN številko, terminom in opisom napake.</p>
   <div class="hero-actions"><button class="btn btn-red" data-open="Rezervacija termina">▣ Rezerviraj termin →</button><button class="btn btn-dark" data-open="Servisno povpraševanje">✈ Pošlji povpraševanje →</button></div>
   <div class="hero-info"><span><span class="dot"></span><b>Jesenice</b> • Ulica Staneta Bokala 5</span><span>✉ dbsservisvozil@gmail.com</span><span>✓ Mobilno optimizirano</span></div>
@@ -121,13 +147,13 @@
   <article class="service-card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 7V4h10v3M8 17v3m8-3v3"/></svg></div><h3>Diagnostika & popravila</h3><p>Diagnostika elektronskih in mehanskih napak ter strokovna popravila vseh ključnih sistemov.</p><button data-service="Diagnostika / popravilo" data-open="Servisno povpraševanje">Prijavi napako <span>→</span></button></article>
 </div>
 <div class="integration-strip">
-  <div><div class="mini-icon">▦</div><b>Spletna rezervacija</b><small>Izbira storitve, datuma in termina.</small></div>
-  <div><div class="mini-icon">▤</div><b>Servisni obrazec</b><small>Vozilo, kontakt, opis težave in fotografije.</small></div>
-  <div><div class="mini-icon">⌕</div><b>VIN validacija</b><small>17-mestni format in podatki vozila.</small></div>
-  <div><div class="mini-icon">🚚</div><b>Vnos vozila</b><small>Znamka, model, letnik, registracija, km.</small></div>
-  <div><div class="mini-icon green">◉</div><b>WhatsApp ready</b><small>Povezava se aktivira z dejansko številko.</small></div>
-  <div><div class="mini-icon">▣</div><b>Galerija</b><small>Fotografije servisa, ekipe in projektov.</small></div>
-  <div><div class="mini-icon">▥</div><b>Admin ready</b><small>Pripravljeno za kasnejši booking/API backend.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="booking"><div class="mini-icon">▦</div><b>Spletna rezervacija</b><small>Izbira storitve, datuma in termina.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="form"><div class="mini-icon">▤</div><b>Servisni obrazec</b><small>Vozilo, kontakt, opis težave in fotografije.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="vin"><div class="mini-icon">⌕</div><b>VIN validacija</b><small>17-mestni format in podatki vozila.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="vehicle"><div class="mini-icon">🚚</div><b>Vnos vozila</b><small>Znamka, model, letnik, registracija, km.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="whatsapp"><div class="mini-icon green">◉</div><b>WhatsApp ready</b><small>Klikni za demo prikaz povezave.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="gallery"><div class="mini-icon">▣</div><b>Galerija</b><small>Klikni za demo galerije.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="admin"><div class="mini-icon">▥</div><b>Admin ready</b><small>Klikni za demo funkcionalnosti.</small></div>
 </div></div>
 
 <section id="o-nas"><div class="wrap"><div class="section-head"><div><div class="label">DBS SERVIS D.O.O.</div><h2>OD PRVEGA KONTAKTA DO KONČANEGA SERVISA</h2></div><p>Stranka lahko že pred prihodom posreduje ključne podatke o vozilu. Tako servis prejme jasen pregled nad zahtevo in se lahko bolje pripravi na sprejem vozila.</p></div>
@@ -154,6 +180,16 @@
 <footer><div class="wrap foot"><div><b>DBS Servis D.O.O.</b><br><small>Premium servis gospodarskih vozil</small></div><div><small>VIP koncept • LNK DIGITAL</small></div></div></footer>
 <button class="mobile-cta" data-open="Rezervacija termina">REZERVIRAJ TERMIN</button>
 
+<div class="modal" id="featureModal"><div class="backdrop" data-feature-close></div><div class="modal-card feature-card">
+  <div class="modal-head"><div><div class="label">DBS SERVIS • DEMO</div><h3 id="featureTitle">Funkcija</h3></div><button class="close" data-feature-close>×</button></div>
+  <div class="feature-body">
+    <div class="feature-icon" id="featureIcon">✓</div>
+    <p id="featureText">Ta funkcija je pripravljena za produkcijsko povezavo.</p>
+    <button class="btn btn-red" id="featureAction">Preizkusi →</button>
+  </div>
+</div></div>
+<div class="demo-toast" id="demoToast" role="status" aria-live="polite"></div>
+
 <div class="modal" id="modal"><div class="backdrop" data-close></div><div class="modal-card"><div class="modal-head"><div><div class="label">DBS DIGITAL SERVICE DESK</div><h3 id="modalTitle">Servisno povpraševanje</h3></div><button class="close" data-close>×</button></div><form class="form" id="serviceForm"><div class="form-grid">
 <label>Ime / podjetje<input id="fName" required placeholder="Ime ali podjetje"></label><label>Telefon<input id="fPhone" required placeholder="+386 ..."></label><label>E-pošta<input id="fEmail" type="email" required placeholder="ime@podjetje.si"></label><label>Želeni datum<input id="fDate" type="date"></label>
 <label>Vrsta vozila<select id="fType"><option>Tovorno vozilo</option><option>Kombi</option><option>Vlačilec</option><option>Prikolica</option><option>Avtobus</option><option>Drugo</option></select></label><label>Znamka<input id="fBrand" placeholder="Mercedes-Benz, MAN, Scania ..."></label><label>Model<input id="fModel" placeholder="Actros 1845"></label><label>Letnik<input id="fYear" inputmode="numeric" placeholder="2021"></label><label>Registracija<input id="fPlate" placeholder="LJ AB-123"></label><label>VIN / številka šasije<input id="fVin" maxlength="17" placeholder="17 znakov"></label><label>Kilometri<input id="fKm" placeholder="487000 km"></label><label>Storitev<select id="fService"><option>Rezervacija termina</option><option>Redni servis</option><option>Vzdrževanje</option><option>Diagnostika / popravilo</option><option>Zavore / podvozje</option><option>Drugo</option></select></label><label class="full">Opis težave<textarea id="fProblem" required placeholder="Opišite težavo, simptome ali želeno storitev..."></textarea></label><label class="full">Fotografije / priloge<input id="fFiles" type="file" multiple accept="image/*,.pdf"></label>
@@ -169,6 +205,83 @@ function validVin(v){return /^[A-HJ-NPR-Z0-9]{17}$/.test(v.toUpperCase())}const 
 function value(id){return document.getElementById(id)?.value?.trim()||'-'}function summary(){return ['DBS SERVIS D.O.O.','NOVO SERVISNO POVPRAŠEVANJE','',`Ime / podjetje: ${value('fName')}`,`Telefon: ${value('fPhone')}`,`E-pošta: ${value('fEmail')}`,`Želeni datum: ${value('fDate')}`,'',`Vrsta vozila: ${value('fType')}`,`Znamka: ${value('fBrand')}`,`Model: ${value('fModel')}`,`Letnik: ${value('fYear')}`,`Registracija: ${value('fPlate')}`,`VIN: ${value('fVin')}`,`Kilometri: ${value('fKm')}`,'',`Storitev: ${value('fService')}`,'',`Opis: ${value('fProblem')}`].join('\n')}
 document.getElementById('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(summary());alert('Podatki so kopirani.')}catch{alert(summary())}});
 document.getElementById('serviceForm').addEventListener('submit',async e=>{e.preventDefault();if(!e.currentTarget.reportValidity())return;if(CONFIG.formEndpoint){try{const r=await fetch(CONFIG.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:summary()})});if(r.ok){alert('Povpraševanje je poslano.');closeModal();return}}catch(_){}}const subject=`DBS Servis – ${value('fService')} – ${value('fBrand')} ${value('fModel')}`;window.location.href=`mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summary()+"\n\nPriloge dodajte ročno pred pošiljanjem.")}`});
+
+/* Test interactions: hero service links, cards and integration options */
+document.querySelectorAll('.service-card').forEach(card=>{
+  const trigger=card.querySelector('[data-open]');
+  card.setAttribute('role','button');
+  card.setAttribute('tabindex','0');
+  const run=()=>trigger&&trigger.click();
+  card.addEventListener('click',e=>{if(e.target.closest('button,a,input,select,textarea'))return;run()});
+  card.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('button,a,input,select,textarea')){e.preventDefault();run()}});
+});
+
+const featureModal=document.getElementById('featureModal');
+const featureTitle=document.getElementById('featureTitle');
+const featureText=document.getElementById('featureText');
+const featureIcon=document.getElementById('featureIcon');
+const featureAction=document.getElementById('featureAction');
+const demoToast=document.getElementById('demoToast');
+let toastTimer;
+function showToast(msg){
+  demoToast.textContent=msg;
+  demoToast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>demoToast.classList.remove('show'),2400);
+}
+function closeFeature(){
+  featureModal.classList.remove('open');
+  if(!modal.classList.contains('open'))document.body.classList.remove('lock');
+}
+document.querySelectorAll('[data-feature-close]').forEach(el=>el.addEventListener('click',closeFeature));
+
+function openFeature(type){
+  const data={
+    whatsapp:{icon:'◉',title:'WhatsApp povezava',text:'Demo je pripravljen. V produkciji ta gumb odpre WhatsApp pogovor z DBS Servis in lahko samodejno doda podatke vozila ter izbrano storitev.',button:'Simuliraj WhatsApp'},
+    gallery:{icon:'▣',title:'Galerija servisa',text:'Galerija je pripravljena za fotografije delavnice, popravil, voznega parka in ekipe. Trenutno lahko preveriš prehod nazaj na hero prikaz.',button:'Prikaži hero sliko'},
+    admin:{icon:'▥',title:'Admin panel',text:'Produkcijska različica lahko vsebuje rezervacije, stranke, vozila, status servisa, interne opombe in zgodovino povpraševanj.',button:'Simuliraj admin'}
+  }[type];
+  if(!data)return;
+  featureIcon.textContent=data.icon;
+  featureTitle.textContent=data.title;
+  featureText.textContent=data.text;
+  featureAction.textContent=data.button+' →';
+  featureAction.onclick=()=>{
+    if(type==='gallery'){
+      closeFeature();
+      document.getElementById('domov').scrollIntoView({behavior:'smooth'});
+      showToast('Demo galerije: hero fotografija je aktivna. Kasneje dodamo več fotografij.');
+    }else if(type==='whatsapp'){
+      showToast('WhatsApp demo deluje. Za pravi pogovor dodamo potrjeno DBS telefonsko številko.');
+    }else{
+      showToast('Admin demo: pripravljeno za povezavo na bazo rezervacij in vozil.');
+    }
+  };
+  featureModal.classList.add('open');
+  document.body.classList.add('lock');
+}
+
+function runDemo(type){
+  if(type==='booking')return openModal('Rezervacija termina','Redni servis');
+  if(type==='form')return openModal('Servisno povpraševanje','Diagnostika / popravilo');
+  if(type==='vehicle'){openModal('Vnos podatkov vozila','Redni servis');setTimeout(()=>document.getElementById('fBrand')?.focus(),180);return}
+  if(type==='vin'){
+    document.getElementById('rezervacija').scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>{vinQuick.focus();showToast('Vnesi 17-mestni VIN in klikni PREVERI.')},450);
+    return;
+  }
+  openFeature(type);
+}
+document.querySelectorAll('.integration-option').forEach(el=>{
+  el.addEventListener('click',()=>runDemo(el.dataset.demo));
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();runDemo(el.dataset.demo)}});
+});
+
+/* Make address and e-mail rows testable too */
+const rows=document.querySelectorAll('.contact-row');
+if(rows[0]){rows[0].style.cursor='pointer';rows[0].addEventListener('click',()=>window.open('https://www.google.com/maps/search/?api=1&query=Ulica+Staneta+Bokala+5%2C+4270+Jesenice','_blank'))}
+if(rows[1]){rows[1].style.cursor='pointer';rows[1].addEventListener('click',()=>location.href='mailto:dbsservisvozil@gmail.com')}
+
 if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}))}
 </script>
 </body></html>
