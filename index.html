@@ -97,13 +97,17 @@ img{display:block;max-width:100%}
 .hero-media{
   position:absolute;inset:0;
   background:
-    linear-gradient(90deg,rgba(4,6,10,.995) 0%,rgba(4,6,10,.97) 28%,rgba(4,6,10,.76) 50%,rgba(4,6,10,.22) 72%,rgba(4,6,10,.08) 100%),
-    linear-gradient(180deg,rgba(4,6,10,.05),rgba(4,6,10,.03) 66%,#05070b 100%),
-    radial-gradient(circle at 82% 42%,rgba(255,98,53,.22),transparent 28%),
-    url("/assets/dbs-servis-truck.webp") 87% 51%/min(59vw,980px) auto no-repeat,
-    linear-gradient(135deg,#080b10 0 56%,#cfd4da 56% 100%);
-  filter:saturate(.92) contrast(1.04);
-  transform:scale(1.008);
+    radial-gradient(circle at 78% 28%,rgba(255,47,67,.20),transparent 30%),
+    radial-gradient(circle at 15% 75%,rgba(45,72,108,.13),transparent 34%),
+    linear-gradient(115deg,#05070b 0%,#080c12 50%,#0b1017 100%);
+  overflow:hidden;
+}
+.hero-media:before{
+  content:"";position:absolute;inset:0;opacity:.34;
+  background:
+    linear-gradient(90deg,transparent 49.7%,rgba(255,255,255,.035) 50%,transparent 50.3%),
+    linear-gradient(0deg,transparent 49.7%,rgba(255,255,255,.025) 50%,transparent 50.3%);
+  background-size:92px 92px;
 }
 .hero-media:after{
   content:"";position:absolute;inset:0;
@@ -117,7 +121,42 @@ img{display:block;max-width:100%}
   clip-path:polygon(39% 0,100% 0,61% 100%,0 100%);
   filter:blur(8px);
 }
-.hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.1fr .9fr;gap:58px;align-items:end}
+.hero-grid{position:relative;z-index:4;display:grid;grid-template-columns:1.08fr .92fr;gap:58px;align-items:end}
+.hero-truck-card{
+  position:absolute;z-index:2;right:2.4%;top:118px;width:min(58vw,920px);height:520px;
+  border-radius:32px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+  background:
+    radial-gradient(circle at 70% 25%,rgba(255,119,65,.22),transparent 30%),
+    linear-gradient(145deg,#eef1f4 0%,#dfe4e8 58%,#cbd2d8 100%);
+  box-shadow:0 42px 120px rgba(0,0,0,.50),inset 0 1px rgba(255,255,255,.65);
+}
+.hero-truck-card:before{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(5,7,11,.08),transparent 35%),
+    linear-gradient(180deg,transparent 70%,rgba(5,7,11,.28));
+}
+.hero-truck-card img{
+  position:absolute;z-index:1;inset:0;width:100%;height:100%;object-fit:contain;
+  padding:18px 18px 6px;
+  opacity:0;transition:opacity .35s ease,transform .6s ease;
+  transform:scale(.98);
+}
+.hero-truck-card img.loaded{opacity:1;transform:scale(1)}
+.hero-truck-tag{
+  position:absolute;z-index:3;right:18px;top:18px;
+  padding:9px 12px;border-radius:999px;
+  background:rgba(8,11,16,.88);color:#fff;
+  border:1px solid rgba(255,255,255,.13);
+  font-size:9px;font-weight:900;letter-spacing:.13em;
+}
+.hero-truck-line{
+  position:absolute;z-index:3;left:20px;bottom:18px;
+  display:flex;gap:9px;align-items:center;color:#fff;font-size:10px;font-weight:900;letter-spacing:.08em;
+  text-shadow:0 2px 12px rgba(0,0,0,.45);
+}
+.hero-truck-line i{width:34px;height:2px;background:var(--red);box-shadow:0 0 14px rgba(255,47,67,.8)}
 .kicker{
   display:inline-flex;align-items:center;gap:10px;
   padding:9px 12px;border-radius:999px;border:1px solid rgba(255,78,93,.28);
@@ -255,9 +294,17 @@ h2{margin:10px 0 0;font:800 clamp(38px,5vw,66px)/.98 Manrope;letter-spacing:-.05
     linear-gradient(0deg,transparent 49.7%,rgba(255,255,255,.035) 50%,transparent 50.3%);
   background-size:86px 86px;
 }
-.desk-visual{position:absolute;inset:28px 22px 148px;display:grid;place-items:center}
-.desk-visual svg{width:100%;height:100%;filter:drop-shadow(0 28px 45px rgba(0,0,0,.5))}
-.desk-glow{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,47,67,.24),transparent 68%);filter:blur(7px)}
+.desk-visual{position:absolute;inset:58px 18px 150px;display:grid;place-items:center;overflow:hidden}
+.desk-visual:before{
+  content:"";position:absolute;width:78%;height:72%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,47,67,.20),transparent 68%);filter:blur(8px)
+}
+.desk-visual img{
+  position:relative;z-index:2;width:96%;height:100%;object-fit:contain;
+  filter:drop-shadow(0 30px 38px rgba(0,0,0,.58));
+  opacity:0;transform:translateY(10px) scale(.97);transition:.4s ease
+}
+.desk-visual img.loaded{opacity:1;transform:none}
 .desk-hud{
   position:absolute;top:26px;left:26px;right:26px;display:flex;justify-content:space-between;gap:10px;z-index:2;
   color:#768290;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase
@@ -377,12 +424,25 @@ textarea{min-height:125px;resize:vertical}
 }
 @media(max-width:680px){
   .wrap{width:min(100% - 26px,1240px)}.nav{height:68px}.brandtext small{display:none}.navcta{display:none}
-  .hero{padding:106px 0 62px}.hero-media{background:
-    linear-gradient(180deg,rgba(4,6,10,.14) 0%,rgba(4,6,10,.80) 48%,#05070b 96%),
-    radial-gradient(circle at 65% 20%,rgba(255,89,45,.18),transparent 28%),
-    url("/assets/dbs-servis-truck.webp") 68% 7%/150% auto no-repeat,
-    linear-gradient(180deg,#d8dde2 0 42%,#090d12 42% 100%)}
-  .hero h1{font-size:51px}.hero-copy>p{font-size:15px}.hero-actions{display:grid}.hero-actions button,.hero-actions a{width:100%}.command{padding:18px}.quickgrid{grid-template-columns:1fr 1fr}
+  .hero{padding:88px 0 58px;display:block}.hero-media{
+    background:
+      radial-gradient(circle at 75% 14%,rgba(255,47,67,.18),transparent 30%),
+      linear-gradient(180deg,#070a0f 0%,#0a0f16 52%,#05070b 100%)
+  }
+  .hero-truck-card{
+    position:relative;right:auto;top:auto;width:calc(100% - 26px);height:285px;margin:12px auto 24px;
+    border-radius:24px;z-index:3
+  }
+  .hero-truck-card img{padding:8px 8px 0}
+  .hero-truck-tag{right:12px;top:12px;font-size:8px}
+  .hero-truck-line{left:14px;bottom:12px;font-size:8px}
+  .hero-grid{position:relative;z-index:4}
+  .hero h1{font-size:44px;line-height:.94;margin:18px 0 18px}
+  .hero h1 .outline{color:#dbe1e7;-webkit-text-stroke:0;text-stroke:0}
+  .hero-copy>p{font-size:14px;line-height:1.66}
+  .hero-actions{display:grid}.hero-actions button,.hero-actions a{width:100%}
+  .hero-meta{gap:12px;margin-top:22px}
+  .command{padding:18px;margin-top:12px}.quickgrid{grid-template-columns:1fr 1fr}
   .trustgrid{grid-template-columns:repeat(2,1fr)}.trustitem:nth-child(2){border-right:0}.trustitem:nth-child(-n+2){border-bottom:1px solid var(--line)}
   section.content,.desk{padding:68px 0}.section-head{gap:18px}.brands{padding:46px 0}.brandgrid{grid-template-columns:repeat(2,1fr)}
   .bento{grid-template-columns:1fr}.service-card.big{min-height:420px}.service-card.wide{grid-column:auto}.service-card.big h3{margin-top:160px}
@@ -391,7 +451,7 @@ textarea{min-height:125px;resize:vertical}
     linear-gradient(90deg,rgba(6,9,13,.97),rgba(6,9,13,.73)),
     url("https://images.pexels.com/photos/257636/pexels-photo-257636.jpeg?auto=compress&cs=tinysrgb&w=1200") 64% center/cover no-repeat}
   .cta{padding-bottom:72px}.ctabox{padding:36px 22px}.ctabox:after{font-size:72px;bottom:-12px}.cta-actions{display:grid}.cta-actions>*{width:100%}
-  .footergrid{flex-direction:column;align-items:flex-start}.float-cta{left:13px;right:13px;justify-content:center;bottom:12px}
+  .footergrid{flex-direction:column;align-items:flex-start}.float-cta{display:none}
   .modal{padding:0}.modalcard{width:100%;height:100vh;max-height:100vh;border-radius:0}.modalhead{padding:17px}.formwrap{padding:18px}.formgrid{grid-template-columns:1fr}.fullfield{grid-column:auto}.formintro{grid-template-columns:1fr}.formactions{display:grid}
 }
 </style>
@@ -423,6 +483,12 @@ textarea{min-height:125px;resize:vertical}
 <section class="hero">
   <div class="hero-media"></div>
   <div class="hero-beam"></div>
+
+  <div class="hero-truck-card reveal">
+    <img data-dbs-truck alt="DBS Servis premium tovornjak">
+    <span class="hero-truck-tag">DBS SERVIS • PREMIUM TRUCK SERVICE</span>
+    <span class="hero-truck-line"><i></i> MERCEDES-BENZ ACTROS • DBS SERVIS</span>
+  </div>
 
   <div class="wrap hero-grid">
     <div class="hero-copy reveal">
@@ -559,62 +625,8 @@ textarea{min-height:125px;resize:vertical}
     <div class="deskgrid">
       <div class="deskleft reveal">
         <div class="desk-hud"><span>DBS VEHICLE SCAN / LIVE</span><span>READY ●</span></div>
-        <div class="desk-visual" aria-hidden="true">
-          <div class="desk-glow"></div>
-          <svg viewBox="0 0 720 390" role="img" aria-label="Stiliziran tovornjak v digitalnem servisnem prostoru">
-            <defs>
-              <linearGradient id="cab" x1="0" x2="1">
-                <stop offset="0" stop-color="#202b38"/>
-                <stop offset="1" stop-color="#0c1219"/>
-              </linearGradient>
-              <linearGradient id="trail" x1="0" x2="1">
-                <stop offset="0" stop-color="#121a23"/>
-                <stop offset="1" stop-color="#080d13"/>
-              </linearGradient>
-              <linearGradient id="redline" x1="0" x2="1">
-                <stop offset="0" stop-color="#8e0014"/>
-                <stop offset=".55" stop-color="#ff3348"/>
-                <stop offset="1" stop-color="#ff7a86"/>
-              </linearGradient>
-              <filter id="softGlow">
-                <feGaussianBlur stdDeviation="7" result="b"/>
-                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-
-            <g opacity=".35" stroke="#9eb0c3" stroke-width="1">
-              <path d="M60 310H660"/>
-              <path d="M95 82H630"/>
-              <path d="M140 55V330M580 55V330"/>
-            </g>
-
-            <g transform="translate(58 86)">
-              <path d="M235 45H541c31 0 56 25 56 56v138H235z" fill="url(#trail)" stroke="#344252" stroke-width="2"/>
-              <path d="M261 71H563" stroke="url(#redline)" stroke-width="3" opacity=".88" filter="url(#softGlow)"/>
-              <path d="M65 119l58-74h106v194H47v-77z" fill="url(#cab)" stroke="#435264" stroke-width="2"/>
-              <path d="M120 59h83v65h-128z" fill="#101b26" stroke="#5d6f82" stroke-width="2"/>
-              <path d="M135 73h52v35h-89z" fill="#172738"/>
-              <path d="M48 166h181v28H48z" fill="#171f28"/>
-              <path d="M245 212H587" stroke="#ff3448" stroke-width="4" opacity=".8"/>
-              <circle cx="114" cy="246" r="42" fill="#05070b" stroke="#586878" stroke-width="7"/>
-              <circle cx="114" cy="246" r="18" fill="#1d2834"/>
-              <circle cx="484" cy="246" r="42" fill="#05070b" stroke="#586878" stroke-width="7"/>
-              <circle cx="484" cy="246" r="18" fill="#1d2834"/>
-              <circle cx="555" cy="246" r="42" fill="#05070b" stroke="#586878" stroke-width="7"/>
-              <circle cx="555" cy="246" r="18" fill="#1d2834"/>
-              <rect x="65" y="137" width="23" height="11" rx="4" fill="#ffebc4" filter="url(#softGlow)"/>
-              <path d="M46 231H594" stroke="#6d7f91" stroke-width="2"/>
-              <text x="355" y="151" fill="#e9edf2" font-size="40" font-weight="900" text-anchor="middle" font-family="Arial, sans-serif">DBS</text>
-              <text x="355" y="176" fill="#738292" font-size="11" font-weight="700" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="4">PREMIUM TRUCK SERVICE</text>
-            </g>
-
-            <g fill="none" stroke="#ff5263" stroke-width="2" opacity=".55">
-              <path d="M93 88h42M93 88v38"/>
-              <path d="M627 88h-42M627 88v38"/>
-              <path d="M93 302h42M93 302v-38"/>
-              <path d="M627 302h-42M627 302v-38"/>
-            </g>
-          </svg>
+        <div class="desk-visual">
+          <img data-dbs-truck alt="DBS Servis tovornjak">
         </div>
 
         <div class="floating">
@@ -865,6 +877,27 @@ textarea{min-height:125px;resize:vertical}
 </div>
 
 <script>
+async function loadDBSTruck(){
+  const targets=[...document.querySelectorAll("[data-dbs-truck]")];
+  if(!targets.length) return;
+  try{
+    const [r1,r2]=await Promise.all([
+      fetch("/assets/dbs-truck-part1.txt?v=2",{cache:"force-cache"}),
+      fetch("/assets/dbs-truck-part2.txt?v=2",{cache:"force-cache"})
+    ]);
+    if(!r1.ok||!r2.ok) throw new Error("truck payload unavailable");
+    const data=(await r1.text()).trim()+(await r2.text()).trim();
+    const src="data:image/webp;base64,"+data;
+    targets.forEach(img=>{
+      img.onload=()=>img.classList.add("loaded");
+      img.src=src;
+    });
+  }catch(err){
+    console.warn("DBS truck image load failed",err);
+  }
+}
+loadDBSTruck();
+
 const menuBtn=document.getElementById("menuBtn");
 const navLinks=document.getElementById("navLinks");
 menuBtn?.addEventListener("click",()=>navLinks.classList.toggle("open"));
