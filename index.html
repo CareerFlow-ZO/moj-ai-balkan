@@ -140,10 +140,9 @@ img{display:block;max-width:100%}
 .hero-truck-card img{
   position:absolute;z-index:1;inset:0;width:100%;height:100%;object-fit:contain;
   padding:18px 18px 6px;
-  opacity:0;transition:opacity .35s ease,transform .6s ease;
-  transform:scale(.98);
+  opacity:1;transform:scale(1);
+  filter:drop-shadow(0 26px 38px rgba(0,0,0,.28));
 }
-.hero-truck-card img.loaded{opacity:1;transform:scale(1)}
 .hero-truck-tag{
   position:absolute;z-index:3;right:18px;top:18px;
   padding:9px 12px;border-radius:999px;
@@ -302,9 +301,8 @@ h2{margin:10px 0 0;font:800 clamp(38px,5vw,66px)/.98 Manrope;letter-spacing:-.05
 .desk-visual img{
   position:relative;z-index:2;width:96%;height:100%;object-fit:contain;
   filter:drop-shadow(0 30px 38px rgba(0,0,0,.58));
-  opacity:0;transform:translateY(10px) scale(.97);transition:.4s ease
+  opacity:1;transform:none;
 }
-.desk-visual img.loaded{opacity:1;transform:none}
 .desk-hud{
   position:absolute;top:26px;left:26px;right:26px;display:flex;justify-content:space-between;gap:10px;z-index:2;
   color:#768290;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase
@@ -424,18 +422,22 @@ textarea{min-height:125px;resize:vertical}
 }
 @media(max-width:680px){
   .wrap{width:min(100% - 26px,1240px)}.nav{height:68px}.brandtext small{display:none}.navcta{display:none}
-  .hero{padding:88px 0 58px;display:block}.hero-media{
+  .hero{padding:82px 0 58px;display:block}
+  .hero-media{
     background:
       radial-gradient(circle at 75% 14%,rgba(255,47,67,.18),transparent 30%),
       linear-gradient(180deg,#070a0f 0%,#0a0f16 52%,#05070b 100%)
   }
   .hero-truck-card{
-    position:relative;right:auto;top:auto;width:calc(100% - 26px);height:285px;margin:12px auto 24px;
-    border-radius:24px;z-index:3
+    position:relative;right:auto;top:auto;width:calc(100% - 26px);height:310px;margin:16px auto 22px;
+    border-radius:24px;z-index:3;
+    background:
+      radial-gradient(circle at 68% 28%,rgba(255,119,65,.18),transparent 31%),
+      linear-gradient(145deg,#f4f5f6 0%,#d9dee3 70%,#c7ced5 100%);
   }
-  .hero-truck-card img{padding:8px 8px 0}
-  .hero-truck-tag{right:12px;top:12px;font-size:8px}
-  .hero-truck-line{left:14px;bottom:12px;font-size:8px}
+  .hero-truck-card img{padding:4px 4px 0;object-fit:contain}
+  .hero-truck-tag{right:12px;top:12px;font-size:7px;padding:7px 9px}
+  .hero-truck-line{left:14px;bottom:12px;font-size:7px;right:14px}
   .hero-grid{position:relative;z-index:4}
   .hero h1{font-size:44px;line-height:.94;margin:18px 0 18px}
   .hero h1 .outline{color:#dbe1e7;-webkit-text-stroke:0;text-stroke:0}
@@ -446,6 +448,9 @@ textarea{min-height:125px;resize:vertical}
   .trustgrid{grid-template-columns:repeat(2,1fr)}.trustitem:nth-child(2){border-right:0}.trustitem:nth-child(-n+2){border-bottom:1px solid var(--line)}
   section.content,.desk{padding:68px 0}.section-head{gap:18px}.brands{padding:46px 0}.brandgrid{grid-template-columns:repeat(2,1fr)}
   .bento{grid-template-columns:1fr}.service-card.big{min-height:420px}.service-card.wide{grid-column:auto}.service-card.big h3{margin-top:160px}
+  .deskleft{min-height:500px}
+  .desk-visual{inset:58px 10px 160px}
+  .deskleft .floating{left:14px;right:14px;bottom:14px;padding:17px}
   .deskright{grid-template-columns:1fr}.metric{min-height:220px}.process{grid-template-columns:1fr}
   .vip{padding-bottom:70px}.vipbox{min-height:520px;padding:34px 22px;background:
     linear-gradient(90deg,rgba(6,9,13,.97),rgba(6,9,13,.73)),
@@ -485,7 +490,7 @@ textarea{min-height:125px;resize:vertical}
   <div class="hero-beam"></div>
 
   <div class="hero-truck-card reveal">
-    <img data-dbs-truck alt="DBS Servis premium tovornjak">
+    <img src="/assets/dbs-servis-truck-v2.webp?v=3" alt="DBS Servis premium tovornjak">
     <span class="hero-truck-tag">DBS SERVIS • PREMIUM TRUCK SERVICE</span>
     <span class="hero-truck-line"><i></i> MERCEDES-BENZ ACTROS • DBS SERVIS</span>
   </div>
@@ -626,7 +631,7 @@ textarea{min-height:125px;resize:vertical}
       <div class="deskleft reveal">
         <div class="desk-hud"><span>DBS VEHICLE SCAN / LIVE</span><span>READY ●</span></div>
         <div class="desk-visual">
-          <img data-dbs-truck alt="DBS Servis tovornjak">
+          <img src="/assets/dbs-servis-truck-v2.webp?v=3" alt="DBS Servis tovornjak">
         </div>
 
         <div class="floating">
@@ -877,27 +882,6 @@ textarea{min-height:125px;resize:vertical}
 </div>
 
 <script>
-async function loadDBSTruck(){
-  const targets=[...document.querySelectorAll("[data-dbs-truck]")];
-  if(!targets.length) return;
-  try{
-    const [r1,r2]=await Promise.all([
-      fetch("/assets/dbs-truck-part1.txt?v=2",{cache:"force-cache"}),
-      fetch("/assets/dbs-truck-part2.txt?v=2",{cache:"force-cache"})
-    ]);
-    if(!r1.ok||!r2.ok) throw new Error("truck payload unavailable");
-    const data=(await r1.text()).trim()+(await r2.text()).trim();
-    const src="data:image/webp;base64,"+data;
-    targets.forEach(img=>{
-      img.onload=()=>img.classList.add("loaded");
-      img.src=src;
-    });
-  }catch(err){
-    console.warn("DBS truck image load failed",err);
-  }
-}
-loadDBSTruck();
-
 const menuBtn=document.getElementById("menuBtn");
 const navLinks=document.getElementById("navLinks");
 menuBtn?.addEventListener("click",()=>navLinks.classList.toggle("open"));
