@@ -241,9 +241,26 @@ h2{margin:10px 0 0;font:800 clamp(38px,5vw,66px)/.98 Manrope;letter-spacing:-.05
 .deskleft{
   min-height:590px;border-radius:28px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.09);
   background:
-    linear-gradient(180deg,transparent 34%,rgba(5,7,10,.96) 100%),
-    url("https://images.pexels.com/photos/1082655/pexels-photo-1082655.jpeg?auto=compress&cs=tinysrgb&w=1400") center/cover no-repeat;
+    radial-gradient(circle at 72% 22%,rgba(255,47,67,.22),transparent 28%),
+    radial-gradient(circle at 20% 82%,rgba(82,120,170,.16),transparent 34%),
+    linear-gradient(145deg,#101722 0%,#080d13 52%,#05070b 100%);
+  box-shadow:inset 0 1px rgba(255,255,255,.03),0 30px 80px rgba(0,0,0,.26);
 }
+.deskleft:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.38;
+  background:
+    linear-gradient(90deg,transparent 49.7%,rgba(255,255,255,.04) 50%,transparent 50.3%),
+    linear-gradient(0deg,transparent 49.7%,rgba(255,255,255,.035) 50%,transparent 50.3%);
+  background-size:86px 86px;
+}
+.desk-visual{position:absolute;inset:28px 22px 148px;display:grid;place-items:center}
+.desk-visual svg{width:100%;height:100%;filter:drop-shadow(0 28px 45px rgba(0,0,0,.5))}
+.desk-glow{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,47,67,.24),transparent 68%);filter:blur(7px)}
+.desk-hud{
+  position:absolute;top:26px;left:26px;right:26px;display:flex;justify-content:space-between;gap:10px;z-index:2;
+  color:#768290;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase
+}
+.desk-hud span:last-child{color:#ff7783}
 .deskleft .floating{
   position:absolute;left:24px;right:24px;bottom:24px;
   padding:20px;border-radius:18px;background:rgba(6,9,13,.75);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px)
@@ -538,6 +555,65 @@ textarea{min-height:125px;resize:vertical}
 
     <div class="deskgrid">
       <div class="deskleft reveal">
+        <div class="desk-hud"><span>DBS VEHICLE SCAN / LIVE</span><span>READY ●</span></div>
+        <div class="desk-visual" aria-hidden="true">
+          <div class="desk-glow"></div>
+          <svg viewBox="0 0 720 390" role="img" aria-label="Stiliziran tovornjak v digitalnem servisnem prostoru">
+            <defs>
+              <linearGradient id="cab" x1="0" x2="1">
+                <stop offset="0" stop-color="#202b38"/>
+                <stop offset="1" stop-color="#0c1219"/>
+              </linearGradient>
+              <linearGradient id="trail" x1="0" x2="1">
+                <stop offset="0" stop-color="#121a23"/>
+                <stop offset="1" stop-color="#080d13"/>
+              </linearGradient>
+              <linearGradient id="redline" x1="0" x2="1">
+                <stop offset="0" stop-color="#8e0014"/>
+                <stop offset=".55" stop-color="#ff3348"/>
+                <stop offset="1" stop-color="#ff7a86"/>
+              </linearGradient>
+              <filter id="softGlow">
+                <feGaussianBlur stdDeviation="7" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <g opacity=".35" stroke="#9eb0c3" stroke-width="1">
+              <path d="M60 310H660"/>
+              <path d="M95 82H630"/>
+              <path d="M140 55V330M580 55V330"/>
+            </g>
+
+            <g transform="translate(58 86)">
+              <path d="M235 45H541c31 0 56 25 56 56v138H235z" fill="url(#trail)" stroke="#344252" stroke-width="2"/>
+              <path d="M261 71H563" stroke="url(#redline)" stroke-width="3" opacity=".88" filter="url(#softGlow)"/>
+              <path d="M65 119l58-74h106v194H47v-77z" fill="url(#cab)" stroke="#435264" stroke-width="2"/>
+              <path d="M120 59h83v65h-128z" fill="#101b26" stroke="#5d6f82" stroke-width="2"/>
+              <path d="M135 73h52v35h-89z" fill="#172738"/>
+              <path d="M48 166h181v28H48z" fill="#171f28"/>
+              <path d="M245 212H587" stroke="#ff3448" stroke-width="4" opacity=".8"/>
+              <circle cx="114" cy="246" r="42" fill="#05070b" stroke="#586878" stroke-width="7"/>
+              <circle cx="114" cy="246" r="18" fill="#1d2834"/>
+              <circle cx="484" cy="246" r="42" fill="#05070b" stroke="#586878" stroke-width="7"/>
+              <circle cx="484" cy="246" r="18" fill="#1d2834"/>
+              <circle cx="555" cy="246" r="42" fill="#05070b" stroke="#586878" stroke-width="7"/>
+              <circle cx="555" cy="246" r="18" fill="#1d2834"/>
+              <rect x="65" y="137" width="23" height="11" rx="4" fill="#ffebc4" filter="url(#softGlow)"/>
+              <path d="M46 231H594" stroke="#6d7f91" stroke-width="2"/>
+              <text x="355" y="151" fill="#e9edf2" font-size="40" font-weight="900" text-anchor="middle" font-family="Arial, sans-serif">DBS</text>
+              <text x="355" y="176" fill="#738292" font-size="11" font-weight="700" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="4">PREMIUM TRUCK SERVICE</text>
+            </g>
+
+            <g fill="none" stroke="#ff5263" stroke-width="2" opacity=".55">
+              <path d="M93 88h42M93 88v38"/>
+              <path d="M627 88h-42M627 88v38"/>
+              <path d="M93 302h42M93 302v-38"/>
+              <path d="M627 302h-42M627 302v-38"/>
+            </g>
+          </svg>
+        </div>
+
         <div class="floating">
           <small>DBS DIGITAL SERVICE DESK</small>
           <h3>Od znamke do VIN številke.</h3>
