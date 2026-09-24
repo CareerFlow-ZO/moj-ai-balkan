@@ -97,11 +97,13 @@ img{display:block;max-width:100%}
 .hero-media{
   position:absolute;inset:0;
   background:
-    linear-gradient(90deg,rgba(4,6,10,.99) 0%,rgba(4,6,10,.94) 26%,rgba(4,6,10,.72) 53%,rgba(4,6,10,.26) 77%,rgba(4,6,10,.52) 100%),
-    linear-gradient(180deg,rgba(4,6,10,.12),rgba(4,6,10,.1) 65%,#05070b 100%),
-    url("https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=2400") center 55%/cover no-repeat;
-  filter:saturate(.74) contrast(1.08);
-  transform:scale(1.015);
+    linear-gradient(90deg,rgba(4,6,10,.995) 0%,rgba(4,6,10,.97) 28%,rgba(4,6,10,.76) 50%,rgba(4,6,10,.22) 72%,rgba(4,6,10,.08) 100%),
+    linear-gradient(180deg,rgba(4,6,10,.05),rgba(4,6,10,.03) 66%,#05070b 100%),
+    radial-gradient(circle at 82% 42%,rgba(255,98,53,.22),transparent 28%),
+    url("/assets/dbs-servis-truck.webp") 87% 51%/min(59vw,980px) auto no-repeat,
+    linear-gradient(135deg,#080b10 0 56%,#cfd4da 56% 100%);
+  filter:saturate(.92) contrast(1.04);
+  transform:scale(1.008);
 }
 .hero-media:after{
   content:"";position:absolute;inset:0;
@@ -376,9 +378,10 @@ textarea{min-height:125px;resize:vertical}
 @media(max-width:680px){
   .wrap{width:min(100% - 26px,1240px)}.nav{height:68px}.brandtext small{display:none}.navcta{display:none}
   .hero{padding:106px 0 62px}.hero-media{background:
-    linear-gradient(90deg,rgba(4,6,10,.98),rgba(4,6,10,.72)),
-    linear-gradient(180deg,transparent,#05070b 98%),
-    url("https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=1400") 64% center/cover no-repeat}
+    linear-gradient(180deg,rgba(4,6,10,.14) 0%,rgba(4,6,10,.80) 48%,#05070b 96%),
+    radial-gradient(circle at 65% 20%,rgba(255,89,45,.18),transparent 28%),
+    url("/assets/dbs-servis-truck.webp") 68% 7%/150% auto no-repeat,
+    linear-gradient(180deg,#d8dde2 0 42%,#090d12 42% 100%)}
   .hero h1{font-size:51px}.hero-copy>p{font-size:15px}.hero-actions{display:grid}.hero-actions button,.hero-actions a{width:100%}.command{padding:18px}.quickgrid{grid-template-columns:1fr 1fr}
   .trustgrid{grid-template-columns:repeat(2,1fr)}.trustitem:nth-child(2){border-right:0}.trustitem:nth-child(-n+2){border-bottom:1px solid var(--line)}
   section.content,.desk{padding:68px 0}.section-head{gap:18px}.brands{padding:46px 0}.brandgrid{grid-template-columns:repeat(2,1fr)}
