@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dbs-servis-previewww.vercel.app/sitemap.xml
