@@ -357,12 +357,15 @@ nav a:hover{
   width:100%;
   height:100%;
   min-height:560px;
-  object-fit:cover;
+  object-fit:contain;
   object-position:center;
   position:absolute;
   inset:0;
   z-index:1;
-  padding:0;
+  padding:12px;
+  background:
+    radial-gradient(circle at 72% 26%,rgba(241,39,61,.14),transparent 28%),
+    linear-gradient(145deg,#d7dde2,#aeb8c1);
 }
 
 .truck-badge{
@@ -632,12 +635,15 @@ h2{
 .workshop-main img{
   width:100%;
   height:390px;
-  object-fit:cover;
+  object-fit:contain;
   object-position:center;
   position:relative;
   z-index:2;
   border-radius:18px;
   border:1px solid rgba(255,255,255,.08);
+  background:
+    radial-gradient(circle at 70% 25%,rgba(241,39,61,.16),transparent 28%),
+    linear-gradient(145deg,#d7dde2,#aeb8c1);
   box-shadow:0 24px 55px rgba(0,0,0,.38);
 }
 
@@ -1122,8 +1128,8 @@ textarea{
 
   .truck-img{
     min-height:0;
-    padding:0;
-    object-fit:cover;
+    padding:6px;
+    object-fit:contain;
     object-position:center;
   }
 
@@ -1157,9 +1163,14 @@ textarea{
   }
 
   .hero h1{
-    font-size:50px;
+    font-size:46px;
     line-height:.94;
     margin:18px 0 16px;
+  }
+
+  .hero h1 span{
+    font-size:.88em;
+    line-height:1.02;
   }
 
   .hero p{
@@ -1209,7 +1220,7 @@ textarea{
   .workshop-main img{
     height:245px;
     border-radius:14px;
-    object-fit:cover;
+    object-fit:contain;
     object-position:center;
   }
 
@@ -1344,10 +1355,10 @@ PREMIUM SERVIS GOSPODARSKIH VOZIL
 
 <h1>
 
-MOČAN SERVIS.
+MANJ ZASTOJEV.
 
 <span>
-RESEN PRISTOP.
+VEČ KILOMETROV.
 </span>
 
 </h1>
@@ -1355,11 +1366,12 @@ RESEN PRISTOP.
 
 <p>
 
-DBS Servis D.O.O. predstavlja sodoben servisni center
-za tovorna vozila, kombije in prikolice.
+Servis, ki pomaga ohranjati vaš vozni park v pogonu.
+DBS Servis D.O.O. skrbi za tovorna vozila, kombije in prikolice
+z jasnim postopkom, hitro obravnavo in strokovnim pristopom.
 
-Stranka lahko še pred prihodom pošlje podatke vozila,
-VIN številko, kilometre, termin in opis napake.
+Podatke vozila, VIN številko, kilometre, termin in opis napake
+lahko pošljete že pred prihodom v servis.
 
 </p>
 
@@ -1409,7 +1421,7 @@ POGLEJ STORITVE ↓
 
 <img
 class="truck-img"
-src="images/dbs-truck-real.webp?v=2"
+src="images/dbs-truck.svg?v=4"
 alt="DBS Servis Mercedes-Benz Actros"
 >
 
@@ -1915,7 +1927,7 @@ READY ●
 
 
 <img
-src="images/dbs-truck-real.webp?v=2"
+src="images/dbs-truck.svg?v=4"
 alt="DBS Servis tovornjak"
 >
 
