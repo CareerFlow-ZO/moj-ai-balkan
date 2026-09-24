@@ -37,12 +37,13 @@
       .links.open{top:68px;left:10px;right:10px;padding:16px;box-shadow:0 24px 70px rgba(0,0,0,.55)}
 
       /* Mobile keeps the same cinematic desktop composition instead of becoming a separate layout. */
-      .hero{padding:104px 0 42px;min-height:780px;align-items:center}
-      .hero-media{inset:68px 0 0 0;background:#07090c}.hero-media img{width:100%;height:100%;object-fit:cover;object-position:61% center;filter:saturate(1.02) contrast(1.08) brightness(.92);transform:scale(1.02)}
-      .hero:before{background:linear-gradient(90deg,rgba(5,7,10,.95) 0%,rgba(5,7,10,.75) 58%,rgba(5,7,10,.26) 100%),linear-gradient(180deg,rgba(5,7,10,.08) 0%,rgba(5,7,10,.28) 42%,rgba(5,7,10,.92) 83%,#07090c 100%)}
-      .hero:after{right:-230px;top:150px;width:520px;height:520px}
-      .hero-grid{grid-template-columns:1fr;min-height:625px;align-items:end}
-      .hero-grid>div{max-width:94%;padding:18px 0 4px}
+      .hero{padding:104px 0 42px;min-height:790px;align-items:center}
+      .hero-media{inset:68px 0 0 0;background:#07090c;overflow:hidden}
+      .hero-media img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:68% 42%;filter:saturate(1.06) contrast(1.1) brightness(.98);transform:scale(1.10);transform-origin:68% 42%}
+      .hero:before{background:linear-gradient(90deg,rgba(5,7,10,.90) 0%,rgba(5,7,10,.67) 48%,rgba(5,7,10,.10) 100%),linear-gradient(180deg,rgba(5,7,10,.03) 0%,rgba(5,7,10,.08) 38%,rgba(5,7,10,.76) 70%,#07090c 100%)}
+      .hero:after{right:-210px;top:105px;width:520px;height:520px;background:radial-gradient(circle,rgba(255,34,56,.14),transparent 68%)}
+      .hero-grid{grid-template-columns:1fr;min-height:635px;align-items:end}
+      .hero-grid>div{max-width:96%;padding:18px 0 4px}
       .eyebrow{font-size:7.7px;letter-spacing:.14em;text-shadow:0 2px 12px #000}
       h1{font-size:clamp(43px,13vw,58px);line-height:.91;margin:14px 0 12px;text-shadow:0 4px 24px rgba(0,0,0,.78)}
       .hero-sub{font-size:14px;font-weight:700;text-shadow:0 2px 12px #000}
@@ -51,6 +52,12 @@
       .hero-actions>*{width:100%;min-height:48px;padding:11px 8px;font-size:9.5px}
       .hero-info{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:16px;font-size:9px}
       .hero-info span:last-child{display:none}
+      @media(max-width:430px){
+        .hero{min-height:800px}
+        .hero-media img{object-position:70% 38%;transform:scale(1.16);transform-origin:70% 38%}
+        .hero:before{background:linear-gradient(90deg,rgba(5,7,10,.86) 0%,rgba(5,7,10,.58) 47%,rgba(5,7,10,.06) 100%),linear-gradient(180deg,rgba(5,7,10,.02) 0%,rgba(5,7,10,.06) 36%,rgba(5,7,10,.80) 70%,#07090c 100%)}
+        .hero-grid{min-height:645px}
+      }
 
       /* Same three desktop service cards, swipeable instead of stacked. */
       .quick{margin-top:-12px;overflow:visible}
