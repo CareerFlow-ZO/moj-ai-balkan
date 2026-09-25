@@ -216,14 +216,57 @@
     .modal{pointer-events:none}.modal.open{pointer-events:auto}
     .modal.open .modal-card,.modal.open .backdrop{pointer-events:auto}
 
+  
+    /* ===== RELIABLE NATIVE ORDER FLOW V6 ===== */
+    .hero-service-links a{appearance:none;border:0;background:transparent;color:#d7dce2;font:inherit;font-weight:800;padding:3px 0;cursor:pointer;position:relative;text-decoration:none}
+    .hero-service-links a:after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:2px;background:var(--red);transition:.2s}
+    .hero-service-links a:hover,.hero-service-links a:focus-visible{color:#fff;outline:none}
+    .hero-service-links a:hover:after,.hero-service-links a:focus-visible:after{right:0}
+    .service-card{isolation:isolate}
+    .card-cover{position:absolute!important;inset:0!important;z-index:8!important;display:block!important;border-radius:inherit!important}
+    .card-cta{position:absolute;left:24px;bottom:20px;color:#fff;font-weight:900;font-size:11px;z-index:2;pointer-events:none}
+    .card-cta span{color:var(--red);margin-left:8px}
+    .integration-option{isolation:isolate}
+    .integration-cover{position:absolute;inset:0;z-index:8;display:block}
+    .integration-option>*:not(.integration-cover){position:relative;z-index:1;pointer-events:none}
+    a.mobile-cta{text-decoration:none}
+    [data-select-service],.card-cover,.integration-cover,.btn,a{touch-action:manipulation}
+
+    .order-area{background:
+      radial-gradient(circle at 82% 15%,rgba(255,34,56,.10),transparent 26%),
+      linear-gradient(180deg,#07090c,#0b1016 50%,#07090c);
+      border-block:1px solid rgba(255,255,255,.06)}
+    .order-form{position:relative;border:1px solid rgba(255,255,255,.10);border-radius:24px;padding:28px;background:linear-gradient(145deg,#111821,#080c11);box-shadow:0 32px 90px rgba(0,0,0,.38);overflow:hidden}
+    .order-form:before{content:"";position:absolute;right:-100px;top:-120px;width:360px;height:360px;background:radial-gradient(circle,rgba(255,34,56,.16),transparent 68%);pointer-events:none}
+    .order-form-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .order-form-grid .full{grid-column:1/-1}
+    .order-consent{position:relative;z-index:1;display:flex;align-items:flex-start;gap:10px;margin:18px 0 0;color:#8e98a4;font-size:10px;line-height:1.5}
+    .order-consent input{width:18px;height:18px;flex:0 0 auto;margin-top:1px}
+    .order-consent label{display:block;font-weight:600}
+    .order-actions{position:relative;z-index:1;display:flex;gap:10px;margin-top:18px}
+    .order-actions>*{flex:1}
+    .order-status{position:relative;z-index:1;margin-top:12px;color:#6f7a86;font-size:9px;line-height:1.5}
+    #narocilo{scroll-margin-top:88px}
+    #rezervacija,#storitve,#o-nas,#kontakt{scroll-margin-top:88px}
+
+    @media(max-width:680px){
+      .hero-service-links a{font-size:11.5px;padding:5px 0}
+      .order-form{padding:17px;border-radius:18px}
+      .order-form-grid{grid-template-columns:1fr;gap:10px}
+      .order-form-grid .full{grid-column:auto}
+      .order-actions{display:grid;grid-template-columns:1fr;gap:8px}
+      .order-actions>*{width:100%}
+      #narocilo{scroll-margin-top:76px}
+    }
+
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"DBS Servis D.O.O.","email":"dbsservisvozil@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Ulica Staneta Bokala 5","postalCode":"4270","addressLocality":"Jesenice","addressCountry":"SI"},"url":"https://dbs-servis-previewww.vercel.app/"}</script>
 </head>
 <body>
 <header><div class="wrap nav">
   <a class="brand" href="#domov"><div><div class="logo"><span class="dbs">DBS</span><span class="servis">SERVIS</span></div><small>GOSPODARSKA VOZILA • DIAGNOSTIKA • SERVIS</small></div></a>
-  <nav class="links" id="navLinks"><a href="#domov">Domov</a><a href="#storitve">Storitve</a><a href="#rezervacija">Rezervacija</a><a href="#o-nas">O nas</a><a href="#kontakt">Kontakt</a></nav>
-  <div class="head-actions"><a class="btn btn-dark" href="mailto:dbsservisvozil@gmail.com">Pošlji e-pošto</a><button class="btn btn-red" data-open="Rezervacija termina">Rezerviraj termin</button><button class="menu" id="menuBtn" aria-label="Odpri meni">☰</button></div>
+  <nav class="links" id="navLinks"><a href="#domov">Domov</a><a href="#storitve">Storitve</a><a href="#rezervacija">Rezervacija</a><a href="#narocilo">Naročilo</a><a href="#o-nas">O nas</a><a href="#kontakt">Kontakt</a></nav>
+  <div class="head-actions"><a class="btn btn-dark" href="mailto:dbsservisvozil@gmail.com">Pošlji e-pošto</a><a class="btn btn-red" href="#narocilo" data-select-service="Redni servis">Rezerviraj termin</a><button class="menu" id="menuBtn" aria-label="Odpri meni">☰</button></div>
 </div></header><div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <main>
@@ -239,15 +282,15 @@
       <div class="eyebrow"><i></i> PROFESIONALNO • STROKOVNO • ZANESLJIVO</div>
       <h1>VAŠA VOZILA V POGONU. <span>VAŠ POSEL BREZ ZASTOJEV.</span></h1>
       <div class="hero-sub hero-service-links" aria-label="Hitre storitve">
-        <button type="button" data-open="Servisno povpraševanje" data-service="Diagnostika / popravilo">Diagnostika</button><span>•</span>
-        <button type="button" data-open="Rezervacija termina" data-service="Redni servis">Servis</button><span>•</span>
-        <button type="button" data-open="Rezervacija termina" data-service="Vzdrževanje">Vzdrževanje</button><span>•</span>
-        <button type="button" data-open="Servisno povpraševanje" data-service="Diagnostika / popravilo">Popravila</button>
+        <a href="#narocilo" data-select-service="Diagnostika / popravilo">Diagnostika</a><span>•</span>
+        <a href="#narocilo" data-select-service="Redni servis">Servis</a><span>•</span>
+        <a href="#narocilo" data-select-service="Vzdrževanje">Vzdrževanje</a><span>•</span>
+        <a href="#narocilo" data-select-service="Diagnostika / popravilo">Popravila</a>
       </div>
       <p>DBS Servis D.O.O. skrbi za tovorna vozila, kombije in prikolice – od diagnostike in rednega vzdrževanja do zahtevnejših popravil. Digitalna prijava vozila z VIN številko, želenim terminom in opisom napake omogoča hitrejši in jasnejši prvi stik.</p>
       <div class="hero-actions">
-        <button class="btn btn-red" data-open="Rezervacija termina">Rezerviraj termin →</button>
-        <button class="btn btn-dark" data-open="Servisno povpraševanje">Pošlji povpraševanje →</button>
+        <a class="btn btn-red" href="#narocilo" data-select-service="Redni servis">Rezerviraj termin →</a>
+        <a class="btn btn-dark" href="#narocilo" data-select-service="Diagnostika / popravilo">Pošlji povpraševanje →</a>
       </div>
       <div class="hero-info">
         <span><span class="dot"></span><b>Jesenice</b> • Ulica Staneta Bokala 5</span>
@@ -259,30 +302,72 @@
 </section>
 
 <div class="wrap quick" id="storitve"><div class="quick-grid">
-  <article class="service-card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-3-3z"/></svg></div><h3>Servis vozil</h3><p>Redni servis, menjava olja in filtrov, pregled vozila ter priprava na naslednje kilometre.</p><button data-service="Redni servis" data-open="Rezervacija termina">Rezerviraj servis <span>→</span></button></article>
-  <article class="service-card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21H10v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1A1.7 1.7 0 0 0 2.9 13H3V10h-.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6A1.7 1.7 0 0 0 10.4 2.9V3H14v-.1A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.2.4.6.8 1 1 .3.2.7.3 1.1.3H21V14h.1a1.7 1.7 0 0 0-1.7 1z"/></svg></div><h3>Vzdrževanje</h3><p>Preventivno vzdrževanje za večjo zanesljivost, varnost in daljšo življenjsko dobo vozila.</p><button data-service="Vzdrževanje" data-open="Rezervacija termina">Rezerviraj pregled <span>→</span></button></article>
-  <article class="service-card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 7V4h10v3M8 17v3m8-3v3"/></svg></div><h3>Diagnostika & popravila</h3><p>Diagnostika elektronskih in mehanskih napak ter strokovna popravila vseh ključnih sistemov.</p><button data-service="Diagnostika / popravilo" data-open="Servisno povpraševanje">Prijavi napako <span>→</span></button></article>
+  <article class="service-card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-3-3z"/></svg></div><a class="card-cover" href="#narocilo" data-select-service="Redni servis" aria-label="Rezerviraj servis vozil"></a><h3>Servis vozil</h3><p>Redni servis, menjava olja in filtrov, pregled vozila ter priprava na naslednje kilometre.</p><span class="card-cta">Rezerviraj servis <span>→</span></span></article>
+  <article class="service-card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21H10v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1A1.7 1.7 0 0 0 2.9 13H3V10h-.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6A1.7 1.7 0 0 0 10.4 2.9V3H14v-.1A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.2.4.6.8 1 1 .3.2.7.3 1.1.3H21V14h.1a1.7 1.7 0 0 0-1.7 1z"/></svg></div><a class="card-cover" href="#narocilo" data-select-service="Vzdrževanje" aria-label="Rezerviraj vzdrževanje"></a><h3>Vzdrževanje</h3><p>Preventivno vzdrževanje za večjo zanesljivost, varnost in daljšo življenjsko dobo vozila.</p><span class="card-cta">Rezerviraj pregled <span>→</span></span></article>
+  <article class="service-card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 7V4h10v3M8 17v3m8-3v3"/></svg></div><a class="card-cover" href="#narocilo" data-select-service="Diagnostika / popravilo" aria-label="Prijavi diagnostiko ali popravilo"></a><h3>Diagnostika & popravila</h3><p>Diagnostika elektronskih in mehanskih napak ter strokovna popravila vseh ključnih sistemov.</p><span class="card-cta">Prijavi napako <span>→</span></span></article>
 </div>
 <div class="integration-strip">
-  <div class="integration-option" role="button" tabindex="0" data-demo="booking"><div class="mini-icon">▦</div><b>Spletna rezervacija</b><small>Izbira storitve, datuma in termina.</small></div>
-  <div class="integration-option" role="button" tabindex="0" data-demo="form"><div class="mini-icon">▤</div><b>Servisni obrazec</b><small>Vozilo, kontakt, opis težave in fotografije.</small></div>
-  <div class="integration-option" role="button" tabindex="0" data-demo="vin"><div class="mini-icon">⌕</div><b>VIN validacija</b><small>17-mestni format in podatki vozila.</small></div>
-  <div class="integration-option" role="button" tabindex="0" data-demo="vehicle"><div class="mini-icon">🚚</div><b>Vnos vozila</b><small>Znamka, model, letnik, registracija, km.</small></div>
-  <div class="integration-option" role="button" tabindex="0" data-demo="whatsapp"><div class="mini-icon green">◉</div><b>WhatsApp ready</b><small>Klikni za demo prikaz povezave.</small></div>
-  <div class="integration-option" role="button" tabindex="0" data-demo="gallery"><div class="mini-icon">▣</div><b>Galerija</b><small>Klikni za demo galerije.</small></div>
-  <div class="integration-option" role="button" tabindex="0" data-demo="admin"><div class="mini-icon">▥</div><b>Admin ready</b><small>Klikni za demo funkcionalnosti.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="booking"><a class="integration-cover" href="#narocilo" data-select-service="Redni servis" aria-label="Spletna rezervacija"></a><div class="mini-icon">▦</div><b>Spletna rezervacija</b><small>Izbira storitve, datuma in termina.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="form"><a class="integration-cover" href="#narocilo" data-select-service="Diagnostika / popravilo" aria-label="Servisni obrazec"></a><div class="mini-icon">▤</div><b>Servisni obrazec</b><small>Vozilo, kontakt, opis težave in fotografije.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="vin"><a class="integration-cover" href="#rezervacija" aria-label="VIN validacija"></a><div class="mini-icon">⌕</div><b>VIN validacija</b><small>17-mestni format in podatki vozila.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="vehicle"><a class="integration-cover" href="#narocilo" data-select-service="Redni servis" aria-label="Vnos vozila"></a><div class="mini-icon">🚚</div><b>Vnos vozila</b><small>Znamka, model, letnik, registracija, km.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="whatsapp"><a class="integration-cover" href="#kontakt" aria-label="WhatsApp integracija"></a><div class="mini-icon green">◉</div><b>WhatsApp ready</b><small>Klikni za demo prikaz povezave.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="gallery"><a class="integration-cover" href="#o-nas" aria-label="Galerija servisa"></a><div class="mini-icon">▣</div><b>Galerija</b><small>Klikni za demo galerije.</small></div>
+  <div class="integration-option" role="button" tabindex="0" data-demo="admin"><a class="integration-cover" href="#o-nas" aria-label="Admin funkcionalnost"></a><div class="mini-icon">▥</div><b>Admin ready</b><small>Klikni za demo funkcionalnosti.</small></div>
 </div></div>
 
 <section id="o-nas"><div class="wrap"><div class="section-head"><div><div class="label">DBS SERVIS D.O.O.</div><h2>OD PRVEGA KONTAKTA DO KONČANEGA SERVISA</h2></div><p>Stranka lahko že pred prihodom posreduje ključne podatke o vozilu. Tako servis prejme jasen pregled nad zahtevo in se lahko bolje pripravi na sprejem vozila.</p></div>
 <div class="process"><div class="step"><span class="num">01</span><h3>Izberite storitev</h3><p>Redni servis, diagnostika, vzdrževanje ali popravilo.</p></div><div class="step"><span class="num">02</span><h3>Vnesite vozilo</h3><p>Znamka, model, VIN, registracija, letnik in kilometri.</p></div><div class="step"><span class="num">03</span><h3>Opišite napako</h3><p>Dodajte simptome, opozorila in po potrebi fotografije.</p></div><div class="step"><span class="num">04</span><h3>Potrditev termina</h3><p>Servis prejme povpraševanje in kontaktira stranko.</p></div></div></div></section>
 
 <section class="booking-area" id="rezervacija"><div class="wrap booking-grid">
-  <div class="booking-panel block"><div class="label">ONLINE REZERVACIJA</div><h2>REZERVIRAJ TERMIN</h2><p>Digitalni sprejem skrajša prvi kontakt in servisu posreduje vse ključne informacije že pred prihodom vozila.</p><div class="booking-features"><div>✓ Izbira storitve</div><div>✓ Datum in želeni čas</div><div>✓ Podatki vozila</div><div>✓ Opis težave</div><div>✓ VIN številka</div><div>✓ E-poštna potrditev</div></div><button class="btn btn-red" data-open="Rezervacija termina">Rezerviraj zdaj →</button></div>
+  <div class="booking-panel block"><div class="label">ONLINE REZERVACIJA</div><h2>REZERVIRAJ TERMIN</h2><p>Digitalni sprejem skrajša prvi kontakt in servisu posreduje vse ključne informacije že pred prihodom vozila.</p><div class="booking-features"><div>✓ Izbira storitve</div><div>✓ Datum in želeni čas</div><div>✓ Podatki vozila</div><div>✓ Opis težave</div><div>✓ VIN številka</div><div>✓ E-poštna potrditev</div></div><a class="btn btn-red" href="#narocilo" data-select-service="Redni servis">Rezerviraj zdaj →</a></div>
   <div class="vin-panel block"><div class="label">VIN / VOZILO</div><h2>PREVERI VIN</h2><p>Vnesite 17-mestno VIN številko. Demo validacija preveri format; za samodejno dekodiranje modela, motorja in zgodovine se kasneje priključi zunanji VIN API.</p><div class="vin-box"><input id="vinQuick" maxlength="17" placeholder="npr. WDB9634031..." autocomplete="off"/><button class="btn btn-red" id="vinCheck">Preveri</button></div><div class="status" id="vinStatus">VIN ne sme vsebovati črk I, O ali Q.</div></div>
 </div></section>
 
+<section class="order-area" id="narocilo">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="label">DIGITALNI SPREJEM VOZILA</div><h2>REZERVACIJA / SERVISNO POVPRAŠEVANJE</h2></div>
+      <p>Izpolnite ključne podatke o vozilu in želeni storitvi. Obrazec je vedno dostopen neposredno na strani in ne potrebuje pojavnega okna.</p>
+    </div>
+    <form class="order-form" id="orderForm" action="mailto:dbsservisvozil@gmail.com" method="post" enctype="text/plain">
+      <div class="order-form-grid">
+        <label>Ime / podjetje<input name="Ime / podjetje" id="oName" required autocomplete="name" placeholder="Ime ali podjetje"></label>
+        <label>Telefon<input name="Telefon" id="oPhone" required inputmode="tel" autocomplete="tel" placeholder="+386 ..."></label>
+        <label>E-pošta<input name="E-pošta" id="oEmail" type="email" required autocomplete="email" placeholder="ime@podjetje.si"></label>
+        <label>Želeni datum<input name="Želeni datum" id="oDate" type="date"></label>
+        <label>Storitev<select name="Storitev" id="oService">
+          <option>Redni servis</option>
+          <option>Vzdrževanje</option>
+          <option>Diagnostika / popravilo</option>
+          <option>Zavore / podvozje</option>
+          <option>Drugo</option>
+        </select></label>
+        <label>Vrsta vozila<select name="Vrsta vozila" id="oType">
+          <option>Tovorno vozilo</option><option>Kombi</option><option>Vlačilec</option><option>Prikolica</option><option>Avtobus</option><option>Drugo</option>
+        </select></label>
+        <label>Znamka<input name="Znamka" id="oBrand" placeholder="Mercedes-Benz, MAN, Scania ..."></label>
+        <label>Model<input name="Model" id="oModel" placeholder="Actros 1845"></label>
+        <label>Letnik<input name="Letnik" id="oYear" inputmode="numeric" placeholder="2021"></label>
+        <label>Registracija<input name="Registracija" id="oPlate" placeholder="LJ AB-123"></label>
+        <label class="full">VIN / številka šasije<input name="VIN" id="oVin" maxlength="17" autocomplete="off" placeholder="17 znakov"></label>
+        <label>Kilometri<input name="Kilometri" id="oKm" inputmode="numeric" placeholder="487000"></label>
+        <label>Vozilo je vozno?<select name="Vozno" id="oDriveable"><option>Da</option><option>Delno</option><option>Ne</option></select></label>
+        <label class="full">Opis težave / želena storitev<textarea name="Opis" id="oProblem" required placeholder="Opišite težavo, simptome, opozorilne lučke ali želeno storitev..."></textarea></label>
+        <label class="full">Fotografije / priloge<input id="oFiles" type="file" multiple accept="image/*,.pdf"></label>
+      </div>
+      <div class="order-consent"><input id="oConsent" type="checkbox" required><label for="oConsent">Strinjam se, da DBS Servis uporabi vnesene podatke za obravnavo povpraševanja.</label></div>
+      <div class="order-actions">
+        <button type="button" class="btn btn-dark" id="orderCopy">Kopiraj podatke</button>
+        <button type="submit" class="btn btn-red">Pripravi e-pošto →</button>
+      </div>
+      <div class="order-status" id="orderStatus">Demo način: podatki se ne shranjujejo na strežnik. Ob oddaji se pripravi e-pošta za DBS Servis.</div>
+    </form>
+  </div>
+</section>
+
 <section id="kontakt"><div class="wrap"><div class="section-head"><div><div class="label">KONTAKT & LOKACIJA</div><h2>PRIPRAVLJENI NA NASLEDNJI SERVIS?</h2></div><p>Za hitro obravnavo uporabite servisni obrazec ali pošljite e-pošto. Kontaktne podatke in telefonsko številko lahko pred javno objavo še dopolnimo.</p></div>
-<div class="contact"><div class="contact-card"><div class="label">DBS SERVIS D.O.O.</div><h2 style="font-size:38px;margin:10px 0 0">Kontaktni center</h2><div class="contact-list"><div class="contact-row"><div>📍</div><div><strong>Lokacija</strong><span>Ulica Staneta Bokala 5, 4270 Jesenice</span></div></div><div class="contact-row"><div>✉</div><div><strong>E-pošta</strong><span>dbsservisvozil@gmail.com</span></div></div><div class="contact-row"><div>🕒</div><div><strong>Delovni čas</strong><span>Vnesite potrjeni delovni čas pred objavo</span></div></div></div><div class="hero-actions"><a class="btn btn-dark" href="mailto:dbsservisvozil@gmail.com">Pošlji e-pošto</a><button class="btn btn-red" data-open="Servisno povpraševanje">Pošlji povpraševanje</button></div></div>
+<div class="contact"><div class="contact-card"><div class="label">DBS SERVIS D.O.O.</div><h2 style="font-size:38px;margin:10px 0 0">Kontaktni center</h2><div class="contact-list"><div class="contact-row"><div>📍</div><div><strong>Lokacija</strong><span>Ulica Staneta Bokala 5, 4270 Jesenice</span></div></div><div class="contact-row"><div>✉</div><div><strong>E-pošta</strong><span>dbsservisvozil@gmail.com</span></div></div><div class="contact-row"><div>🕒</div><div><strong>Delovni čas</strong><span>Vnesite potrjeni delovni čas pred objavo</span></div></div></div><div class="hero-actions"><a class="btn btn-dark" href="mailto:dbsservisvozil@gmail.com">Pošlji e-pošto</a><a class="btn btn-red" href="#narocilo" data-select-service="Diagnostika / popravilo">Pošlji povpraševanje</a></div></div>
 <div class="map-card"><div class="pin"></div><div class="map-copy"><div class="label">JESENICE</div><h3 style="margin:8px 0 6px">Ulica Staneta Bokala 5</h3><p style="color:#8e98a4;font-size:12px;line-height:1.55">Odprite lokacijo v Google Maps in začnite navigacijo do servisa.</p><a class="btn btn-red" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ulica+Staneta+Bokala+5%2C+4270+Jesenice">Odpri Google Maps →</a></div></div></div>
 </div></section>
 
@@ -295,7 +380,7 @@
 </main>
 
 <footer><div class="wrap foot"><div><b>DBS Servis D.O.O.</b><br><small>Premium servis gospodarskih vozil</small></div><div><small>VIP koncept • LNK DIGITAL</small></div></div></footer>
-<button class="mobile-cta" data-open="Rezervacija termina">REZERVIRAJ TERMIN</button>
+<a class="mobile-cta" href="#narocilo" data-select-service="Redni servis">REZERVIRAJ TERMIN</a>
 
 <div class="modal" id="featureModal"><div class="backdrop" data-feature-close></div><div class="modal-card feature-card">
   <div class="modal-head"><div><div class="label">DBS SERVIS • DEMO</div><h3 id="featureTitle">Funkcija</h3></div><button class="close" data-feature-close>×</button></div>
@@ -315,265 +400,128 @@
 <script>
 (function(){
   'use strict';
+  function $(id){return document.getElementById(id)}
+  var nav=$('navLinks'), menu=$('menuBtn');
 
-  function $(id){ return document.getElementById(id); }
-  var modal=$('modal');
-  var modalTitle=$('modalTitle');
-  var serviceSel=$('fService');
-  var featureModal=$('featureModal');
-  var navLinks=$('navLinks');
-  var menuBtn=$('menuBtn');
-  var toast=$('demoToast');
-  var toastTimer=null;
+  if(menu) menu.addEventListener('click',function(){
+    if(nav) nav.classList.toggle('open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(function(a){
+    a.addEventListener('click',function(){if(nav)nav.classList.remove('open')});
+  });
 
-  function lockPage(on){
-    document.body.classList.toggle('lock', !!on);
-  }
-
-  function chooseService(service){
-    if(!serviceSel || !service) return;
-    var needle=String(service).toLowerCase().split(' ')[0];
-    Array.prototype.forEach.call(serviceSel.options,function(o){
-      if(String(o.textContent).toLowerCase().indexOf(needle)!==-1) serviceSel.value=o.value;
-    });
-  }
-
-  function openOrder(title,service){
-    if(!modal) return;
-    if(modalTitle) modalTitle.textContent=title || 'Servisno povpraševanje';
-    chooseService(service || '');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    lockPage(true);
-    window.setTimeout(function(){
-      var first=$('fName');
-      if(first) first.focus();
-    },120);
-  }
-
-  function closeOrder(){
-    if(!modal) return;
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
-    if(!featureModal || !featureModal.classList.contains('open')) lockPage(false);
-  }
-
-  function showToast(msg){
-    if(!toast) return;
-    toast.textContent=msg;
-    toast.classList.add('show');
-    window.clearTimeout(toastTimer);
-    toastTimer=window.setTimeout(function(){toast.classList.remove('show');},2400);
-  }
-
-  function closeFeature(){
-    if(!featureModal) return;
-    featureModal.classList.remove('open');
-    if(!modal || !modal.classList.contains('open')) lockPage(false);
-  }
-
-  function openFeature(type){
-    if(!featureModal) return;
-    var data={
-      whatsapp:{icon:'◉',title:'WhatsApp povezava',text:'Produkcijska verzija lahko odpre WhatsApp pogovor z že pripravljenimi podatki vozila in izbrano storitvijo.',button:'Preizkusi demo'},
-      gallery:{icon:'▣',title:'Galerija servisa',text:'Tukaj bodo fotografije delavnice, popravil, vozil in ekipe. Demo vas vrne na glavni vizual.',button:'Prikaži glavni vizual'},
-      admin:{icon:'▥',title:'Admin panel',text:'Admin lahko vsebuje rezervacije, stranke, vozila, statuse servisa, interne opombe in zgodovino povpraševanj.',button:'Preizkusi demo'}
-    }[type];
-    if(!data) return;
-
-    var ti=$('featureTitle'), tx=$('featureText'), ic=$('featureIcon'), ac=$('featureAction');
-    if(ti) ti.textContent=data.title;
-    if(tx) tx.textContent=data.text;
-    if(ic) ic.textContent=data.icon;
-    if(ac){
-      ac.textContent=data.button+' →';
-      ac.onclick=function(){
-        if(type==='gallery'){
-          closeFeature();
-          var home=$('domov');
-          if(home) home.scrollIntoView({behavior:'smooth'});
-          showToast('Galerija je pripravljena za dodajanje dejanskih fotografij.');
-        }else if(type==='whatsapp'){
-          showToast('WhatsApp integracija je pripravljena za priklop na potrjeno številko.');
-        }else{
-          showToast('Admin funkcionalnost je pripravljena za povezavo z bazo.');
+  var serviceSelect=$('oService');
+  document.querySelectorAll('[data-select-service]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var wanted=el.getAttribute('data-select-service');
+      if(!serviceSelect || !wanted) return;
+      Array.prototype.forEach.call(serviceSelect.options,function(opt){
+        if(opt.textContent.toLowerCase().indexOf(wanted.toLowerCase().split(' ')[0])!==-1){
+          serviceSelect.value=opt.value;
         }
-      };
-    }
-    featureModal.classList.add('open');
-    lockPage(true);
-  }
-
-  function runIntegration(type){
-    if(type==='booking'){ openOrder('Rezervacija termina','Redni servis'); return; }
-    if(type==='form'){ openOrder('Servisno povpraševanje','Diagnostika / popravilo'); return; }
-    if(type==='vehicle'){
-      openOrder('Vnos podatkov vozila','Redni servis');
-      window.setTimeout(function(){var x=$('fBrand');if(x)x.focus();},180);
-      return;
-    }
-    if(type==='vin'){
-      var section=$('rezervacija');
-      if(section) section.scrollIntoView({behavior:'smooth',block:'center'});
-      window.setTimeout(function(){var x=$('vinQuick');if(x)x.focus();showToast('Vnesite 17-mestni VIN in kliknite PREVERI.');},400);
-      return;
-    }
-    openFeature(type);
-  }
-
-  // One delegated click handler = reliable on iPhone and desktop, including dynamically styled elements.
-  document.addEventListener('click',function(ev){
-    var t=ev.target;
-
-    var close=t.closest('[data-close]');
-    if(close){ ev.preventDefault(); closeOrder(); return; }
-
-    var featureClose=t.closest('[data-feature-close]');
-    if(featureClose){ ev.preventDefault(); closeFeature(); return; }
-
-    var opener=t.closest('[data-open]');
-    if(opener){
-      ev.preventDefault();
-      openOrder(opener.getAttribute('data-open') || 'Servisno povpraševanje', opener.getAttribute('data-service') || '');
-      return;
-    }
-
-    var card=t.closest('.service-card');
-    if(card){
-      var btn=card.querySelector('[data-open]');
-      if(btn) openOrder(btn.getAttribute('data-open') || 'Servisno povpraševanje', btn.getAttribute('data-service') || '');
-      return;
-    }
-
-    var integration=t.closest('.integration-option');
-    if(integration){ ev.preventDefault(); runIntegration(integration.getAttribute('data-demo')); return; }
-
-    var faq=t.closest('.faq-q');
-    if(faq){ ev.preventDefault(); faq.parentElement.classList.toggle('open'); return; }
-
-    if(t.closest('#menuBtn')){
-      ev.preventDefault();
-      if(navLinks) navLinks.classList.toggle('open');
-      return;
-    }
-
-    var contact=t.closest('.contact-row');
-    if(contact){
-      var rows=document.querySelectorAll('.contact-row');
-      if(contact===rows[0]) window.open('https://www.google.com/maps/search/?api=1&query=Ulica+Staneta+Bokala+5%2C+4270+Jesenice','_blank');
-      else if(contact===rows[1]) window.location.href='mailto:dbsservisvozil@gmail.com';
-    }
-  },false);
-
-  document.addEventListener('keydown',function(ev){
-    if(ev.key==='Escape'){ closeOrder(); closeFeature(); }
-    if((ev.key==='Enter'||ev.key===' ') && ev.target.classList && ev.target.classList.contains('integration-option')){
-      ev.preventDefault(); runIntegration(ev.target.getAttribute('data-demo'));
-    }
+      });
+    });
   });
 
-  Array.prototype.forEach.call(document.querySelectorAll('#navLinks a'),function(a){
-    a.addEventListener('click',function(){ if(navLinks) navLinks.classList.remove('open'); });
-  });
-
-  var dateInput=$('fDate');
-  if(dateInput) dateInput.min=new Date().toISOString().slice(0,10);
-
-  function validVin(v){ return /^[A-HJ-NPR-Z0-9]{17}$/.test(String(v).toUpperCase()); }
-  var vinBtn=$('vinCheck');
-  if(vinBtn){
-    vinBtn.addEventListener('click',function(ev){
-      ev.preventDefault();
-      var input=$('vinQuick'), status=$('vinStatus');
-      var v=input ? input.value.trim().toUpperCase() : '';
-      if(input) input.value=v;
-      if(validVin(v)){
-        if(status){status.textContent='VIN format je veljaven. Za dejansko dekodiranje se priključi VIN API.';status.className='status ok';}
-        var formVin=$('fVin'); if(formVin) formVin.value=v;
-      }else{
-        if(status){status.textContent='VIN mora imeti 17 znakov in ne sme vsebovati I, O ali Q.';status.className='status bad';}
+  // If user taps the visible body of an integration tile, follow its real native link.
+  document.querySelectorAll('.integration-option').forEach(function(tile){
+    tile.addEventListener('keydown',function(ev){
+      if(ev.key==='Enter'||ev.key===' '){
+        ev.preventDefault();
+        var a=tile.querySelector('.integration-cover');
+        if(a) a.click();
       }
     });
-  }
+  });
 
-  function val(id){
-    var el=$(id);
-    return el && typeof el.value==='string' && el.value.trim() ? el.value.trim() : '-';
-  }
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){q.parentElement.classList.toggle('open')});
+  });
 
-  function summary(){
+  function validVin(v){return /^[A-HJ-NPR-Z0-9]{17}$/.test(String(v).toUpperCase())}
+  var vin=$('vinQuick'), vinBtn=$('vinCheck'), vinStatus=$('vinStatus');
+  if(vinBtn) vinBtn.addEventListener('click',function(){
+    var v=vin?vin.value.trim().toUpperCase():'';
+    if(vin) vin.value=v;
+    if(validVin(v)){
+      if(vinStatus){vinStatus.textContent='VIN format je veljaven.';vinStatus.className='status ok'}
+      var ov=$('oVin'); if(ov) ov.value=v;
+    }else{
+      if(vinStatus){vinStatus.textContent='VIN mora imeti 17 znakov in ne sme vsebovati I, O ali Q.';vinStatus.className='status bad'}
+    }
+  });
+
+  var date=$('oDate');
+  if(date) date.min=new Date().toISOString().slice(0,10);
+
+  function value(id){
+    var x=$(id); return x&&typeof x.value==='string'&&x.value.trim()?x.value.trim():'-';
+  }
+  function orderSummary(){
     return [
       'DBS SERVIS D.O.O.',
       'NOVO SERVISNO POVPRAŠEVANJE',
       '',
-      'Ime / podjetje: '+val('fName'),
-      'Telefon: '+val('fPhone'),
-      'E-pošta: '+val('fEmail'),
-      'Želeni datum: '+val('fDate'),
+      'Ime / podjetje: '+value('oName'),
+      'Telefon: '+value('oPhone'),
+      'E-pošta: '+value('oEmail'),
+      'Želeni datum: '+value('oDate'),
+      'Storitev: '+value('oService'),
       '',
-      'Vrsta vozila: '+val('fType'),
-      'Znamka: '+val('fBrand'),
-      'Model: '+val('fModel'),
-      'Letnik: '+val('fYear'),
-      'Registracija: '+val('fPlate'),
-      'VIN: '+val('fVin'),
-      'Kilometri: '+val('fKm'),
+      'Vrsta vozila: '+value('oType'),
+      'Znamka: '+value('oBrand'),
+      'Model: '+value('oModel'),
+      'Letnik: '+value('oYear'),
+      'Registracija: '+value('oPlate'),
+      'VIN: '+value('oVin'),
+      'Kilometri: '+value('oKm'),
+      'Vozilo je vozno: '+value('oDriveable'),
       '',
-      'Storitev: '+val('fService'),
-      '',
-      'Opis: '+val('fProblem')
+      'Opis: '+value('oProblem')
     ].join('\n');
   }
 
-  var copyBtn=$('copyBtn');
-  if(copyBtn){
-    copyBtn.addEventListener('click',function(){
-      var txt=summary();
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(txt).then(function(){showToast('Podatki so kopirani.');}).catch(function(){window.prompt('Kopirajte podatke:',txt);});
-      }else window.prompt('Kopirajte podatke:',txt);
-    });
+  var copy=$('orderCopy');
+  if(copy) copy.addEventListener('click',function(){
+    var txt=orderSummary();
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        var st=$('orderStatus'); if(st)st.textContent='✓ Podatki so kopirani.';
+      }).catch(function(){window.prompt('Kopirajte podatke:',txt)});
+    }else window.prompt('Kopirajte podatke:',txt);
+  });
+
+  var form=$('orderForm');
+  if(form) form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    if(!form.reportValidity()) return;
+    var subject='DBS Servis – '+value('oService')+' – '+value('oBrand')+' '+value('oModel');
+    var body=orderSummary()+'\n\nFotografije/priloge dodajte ročno v e-pošto.';
+    window.location.href='mailto:dbsservisvozil@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  });
+
+  var rows=document.querySelectorAll('.contact-row');
+  if(rows[0]){
+    rows[0].style.cursor='pointer';
+    rows[0].addEventListener('click',function(){window.open('https://www.google.com/maps/search/?api=1&query=Ulica+Staneta+Bokala+5%2C+4270+Jesenice','_blank')});
+  }
+  if(rows[1]){
+    rows[1].style.cursor='pointer';
+    rows[1].addEventListener('click',function(){window.location.href='mailto:dbsservisvozil@gmail.com'});
   }
 
-  var form=$('serviceForm');
-  if(form){
-    form.addEventListener('submit',function(ev){
-      ev.preventDefault();
-      if(!form.reportValidity()) return;
-      var subject='DBS Servis – '+val('fService')+' – '+val('fBrand')+' '+val('fModel');
-      var body=summary()+'\n\nPriloge dodajte ročno pred pošiljanjem.';
-      window.location.href='mailto:dbsservisvozil@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-    });
-  }
-
-  // Scroll progress + active menu.
   var progress=$('scrollProgress');
   function updateProgress(){
     var max=document.documentElement.scrollHeight-window.innerHeight;
-    var pct=max>0?(window.scrollY/max)*100:0;
-    if(progress) progress.style.width=Math.max(0,Math.min(100,pct))+'%';
+    if(progress) progress.style.width=(max>0?Math.min(100,Math.max(0,window.scrollY/max*100)):0)+'%';
   }
-  window.addEventListener('scroll',updateProgress,{passive:true});
-  updateProgress();
+  window.addEventListener('scroll',updateProgress,{passive:true}); updateProgress();
 
-  var anchors=Array.prototype.slice.call(document.querySelectorAll('#navLinks a[href^="#"]'));
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){
-      var visible=entries.filter(function(x){return x.isIntersecting;}).sort(function(a,b){return b.intersectionRatio-a.intersectionRatio;})[0];
-      if(!visible) return;
-      anchors.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+visible.target.id);});
-    },{rootMargin:'-28% 0px -58% 0px',threshold:[0,.15,.35,.6]});
-    anchors.forEach(function(a){var sec=document.querySelector(a.getAttribute('href'));if(sec)obs.observe(sec);});
-  }
-
-  // Force the current service worker to re-check immediately.
   if('serviceWorker' in navigator){
     window.addEventListener('load',function(){
-      navigator.serviceWorker.register('/sw.js?v=5',{updateViaCache:'none'}).then(function(reg){reg.update();}).catch(function(){});
+      navigator.serviceWorker.register('/sw.js?v=6',{updateViaCache:'none'}).then(function(r){r.update()}).catch(function(){});
     });
   }
-
-  window.DBS_DEMO={openOrder:openOrder,closeOrder:closeOrder};
 })();
 </script>
 </body></html>
