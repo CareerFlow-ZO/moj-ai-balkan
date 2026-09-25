@@ -1,4 +1,4 @@
-const CACHE='dbs-servis-v5';
+const CACHE='dbs-servis-v6';
 const CORE=[
   '/',
   '/index.html',
