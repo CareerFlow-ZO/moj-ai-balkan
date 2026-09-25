@@ -207,6 +207,15 @@
       *,*:before,*:after{animation:none!important;transition:none!important}
     }
 
+  
+    /* Interaction reliability */
+    button,.btn,[data-open],.service-card,.integration-option,.faq-q,.contact-row{touch-action:manipulation}
+    .hero-copy,.hero-actions,.hero-service-links,.quick,.service-card,.integration-strip{position:relative;z-index:5}
+    .hero-media,.hero-media *,.hero:before,.hero:after{pointer-events:none}
+    [data-open],.service-card,.integration-option,.faq-q{pointer-events:auto}
+    .modal{pointer-events:none}.modal.open{pointer-events:auto}
+    .modal.open .modal-card,.modal.open .backdrop{pointer-events:auto}
+
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"DBS Servis D.O.O.","email":"dbsservisvozil@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Ulica Staneta Bokala 5","postalCode":"4270","addressLocality":"Jesenice","addressCountry":"SI"},"url":"https://dbs-servis-previewww.vercel.app/"}</script>
 </head>
@@ -304,113 +313,267 @@
 </div><div class="form-actions"><button type="button" class="btn btn-dark" id="copyBtn">Kopiraj podatke</button><button type="submit" class="btn btn-red">Pripravi e-pošto →</button></div><div class="notice">Demo različica ne shranjuje podatkov na strežnik. Gumb pripravi e-pošto za dbsservisvozil@gmail.com. Za produkcijo je obrazec pripravljen za priklop na API, Formspree, Supabase ali lasten backend.</div></form></div></div>
 
 <script>
-const CONFIG={email:'dbsservisvozil@gmail.com',formEndpoint:''};
-const menuBtn=document.getElementById('menuBtn'),navLinks=document.getElementById('navLinks');menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
-const modal=document.getElementById('modal'),modalTitle=document.getElementById('modalTitle'),serviceSel=document.getElementById('fService');function openModal(title,service=''){modal.classList.add('open');document.body.classList.add('lock');modalTitle.textContent=title||'Servisno povpraševanje';if(service){[...serviceSel.options].forEach(o=>{if(o.textContent.toLowerCase().includes(service.toLowerCase().split(' ')[0]))serviceSel.value=o.value})}}function closeModal(){modal.classList.remove('open');document.body.classList.remove('lock')}
-document.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',()=>openModal(el.dataset.open,el.dataset.service||'')));document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});document.getElementById('fDate').min=new Date().toISOString().split('T')[0];
-document.querySelectorAll('.faq-q').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
-function validVin(v){return /^[A-HJ-NPR-Z0-9]{17}$/.test(v.toUpperCase())}const vinQuick=document.getElementById('vinQuick'),vinStatus=document.getElementById('vinStatus');document.getElementById('vinCheck').addEventListener('click',()=>{const v=vinQuick.value.trim().toUpperCase();vinQuick.value=v;if(validVin(v)){vinStatus.textContent='VIN format je veljaven. Za dejansko dekodiranje se priključi VIN API.';vinStatus.className='status ok';document.getElementById('fVin').value=v}else{vinStatus.textContent='VIN mora imeti 17 znakov in ne sme vsebovati I, O ali Q.';vinStatus.className='status bad'}});
-function value(id){return document.getElementById(id)?.value?.trim()||'-'}function summary(){return ['DBS SERVIS D.O.O.','NOVO SERVISNO POVPRAŠEVANJE','',`Ime / podjetje: ${value('fName')}`,`Telefon: ${value('fPhone')}`,`E-pošta: ${value('fEmail')}`,`Želeni datum: ${value('fDate')}`,'',`Vrsta vozila: ${value('fType')}`,`Znamka: ${value('fBrand')}`,`Model: ${value('fModel')}`,`Letnik: ${value('fYear')}`,`Registracija: ${value('fPlate')}`,`VIN: ${value('fVin')}`,`Kilometri: ${value('fKm')}`,'',`Storitev: ${value('fService')}`,'',`Opis: ${value('fProblem')}`].join('\n')}
-document.getElementById('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(summary());alert('Podatki so kopirani.')}catch{alert(summary())}});
-document.getElementById('serviceForm').addEventListener('submit',async e=>{e.preventDefault();if(!e.currentTarget.reportValidity())return;if(CONFIG.formEndpoint){try{const r=await fetch(CONFIG.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:summary()})});if(r.ok){alert('Povpraševanje je poslano.');closeModal();return}}catch(_){}}const subject=`DBS Servis – ${value('fService')} – ${value('fBrand')} ${value('fModel')}`;window.location.href=`mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(summary()+"\n\nPriloge dodajte ročno pred pošiljanjem.")}`});
+(function(){
+  'use strict';
 
-/* Test interactions: hero service links, cards and integration options */
-document.querySelectorAll('.service-card').forEach(card=>{
-  const trigger=card.querySelector('[data-open]');
-  card.setAttribute('role','button');
-  card.setAttribute('tabindex','0');
-  const run=()=>trigger&&trigger.click();
-  card.addEventListener('click',e=>{if(e.target.closest('button,a,input,select,textarea'))return;run()});
-  card.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('button,a,input,select,textarea')){e.preventDefault();run()}});
-});
+  function $(id){ return document.getElementById(id); }
+  var modal=$('modal');
+  var modalTitle=$('modalTitle');
+  var serviceSel=$('fService');
+  var featureModal=$('featureModal');
+  var navLinks=$('navLinks');
+  var menuBtn=$('menuBtn');
+  var toast=$('demoToast');
+  var toastTimer=null;
 
-const featureModal=document.getElementById('featureModal');
-const featureTitle=document.getElementById('featureTitle');
-const featureText=document.getElementById('featureText');
-const featureIcon=document.getElementById('featureIcon');
-const featureAction=document.getElementById('featureAction');
-const demoToast=document.getElementById('demoToast');
-let toastTimer;
-function showToast(msg){
-  demoToast.textContent=msg;
-  demoToast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>demoToast.classList.remove('show'),2400);
-}
-function closeFeature(){
-  featureModal.classList.remove('open');
-  if(!modal.classList.contains('open'))document.body.classList.remove('lock');
-}
-document.querySelectorAll('[data-feature-close]').forEach(el=>el.addEventListener('click',closeFeature));
-
-function openFeature(type){
-  const data={
-    whatsapp:{icon:'◉',title:'WhatsApp povezava',text:'Demo je pripravljen. V produkciji ta gumb odpre WhatsApp pogovor z DBS Servis in lahko samodejno doda podatke vozila ter izbrano storitev.',button:'Simuliraj WhatsApp'},
-    gallery:{icon:'▣',title:'Galerija servisa',text:'Galerija je pripravljena za fotografije delavnice, popravil, voznega parka in ekipe. Trenutno lahko preveriš prehod nazaj na hero prikaz.',button:'Prikaži hero sliko'},
-    admin:{icon:'▥',title:'Admin panel',text:'Produkcijska različica lahko vsebuje rezervacije, stranke, vozila, status servisa, interne opombe in zgodovino povpraševanj.',button:'Simuliraj admin'}
-  }[type];
-  if(!data)return;
-  featureIcon.textContent=data.icon;
-  featureTitle.textContent=data.title;
-  featureText.textContent=data.text;
-  featureAction.textContent=data.button+' →';
-  featureAction.onclick=()=>{
-    if(type==='gallery'){
-      closeFeature();
-      document.getElementById('domov').scrollIntoView({behavior:'smooth'});
-      showToast('Demo galerije: hero fotografija je aktivna. Kasneje dodamo več fotografij.');
-    }else if(type==='whatsapp'){
-      showToast('WhatsApp demo deluje. Za pravi pogovor dodamo potrjeno DBS telefonsko številko.');
-    }else{
-      showToast('Admin demo: pripravljeno za povezavo na bazo rezervacij in vozil.');
-    }
-  };
-  featureModal.classList.add('open');
-  document.body.classList.add('lock');
-}
-
-function runDemo(type){
-  if(type==='booking')return openModal('Rezervacija termina','Redni servis');
-  if(type==='form')return openModal('Servisno povpraševanje','Diagnostika / popravilo');
-  if(type==='vehicle'){openModal('Vnos podatkov vozila','Redni servis');setTimeout(()=>document.getElementById('fBrand')?.focus(),180);return}
-  if(type==='vin'){
-    document.getElementById('rezervacija').scrollIntoView({behavior:'smooth',block:'center'});
-    setTimeout(()=>{vinQuick.focus();showToast('Vnesi 17-mestni VIN in klikni PREVERI.')},450);
-    return;
+  function lockPage(on){
+    document.body.classList.toggle('lock', !!on);
   }
-  openFeature(type);
-}
-document.querySelectorAll('.integration-option').forEach(el=>{
-  el.addEventListener('click',()=>runDemo(el.dataset.demo));
-  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();runDemo(el.dataset.demo)}});
-});
 
-/* Make address and e-mail rows testable too */
-const rows=document.querySelectorAll('.contact-row');
-if(rows[0]){rows[0].style.cursor='pointer';rows[0].addEventListener('click',()=>window.open('https://www.google.com/maps/search/?api=1&query=Ulica+Staneta+Bokala+5%2C+4270+Jesenice','_blank'))}
-if(rows[1]){rows[1].style.cursor='pointer';rows[1].addEventListener('click',()=>location.href='mailto:dbsservisvozil@gmail.com')}
+  function chooseService(service){
+    if(!serviceSel || !service) return;
+    var needle=String(service).toLowerCase().split(' ')[0];
+    Array.prototype.forEach.call(serviceSel.options,function(o){
+      if(String(o.textContent).toLowerCase().indexOf(needle)!==-1) serviceSel.value=o.value;
+    });
+  }
 
+  function openOrder(title,service){
+    if(!modal) return;
+    if(modalTitle) modalTitle.textContent=title || 'Servisno povpraševanje';
+    chooseService(service || '');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    lockPage(true);
+    window.setTimeout(function(){
+      var first=$('fName');
+      if(first) first.focus();
+    },120);
+  }
 
-/* Premium navigation polish */
-const scrollProgress=document.getElementById('scrollProgress');
-function updateScrollProgress(){
-  const max=document.documentElement.scrollHeight-innerHeight;
-  const pct=max>0?(scrollY/max)*100:0;
-  if(scrollProgress)scrollProgress.style.width=Math.min(100,Math.max(0,pct))+'%';
-}
-addEventListener('scroll',updateScrollProgress,{passive:true});updateScrollProgress();
+  function closeOrder(){
+    if(!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    if(!featureModal || !featureModal.classList.contains('open')) lockPage(false);
+  }
 
-const navAnchors=[...document.querySelectorAll('#navLinks a[href^="#"]')];
-const observedSections=navAnchors.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-if('IntersectionObserver' in window){
-  const sectionObserver=new IntersectionObserver(entries=>{
-    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-    if(!visible)return;
-    navAnchors.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+visible.target.id));
-  },{rootMargin:'-28% 0px -58% 0px',threshold:[0,.15,.35,.6]});
-  observedSections.forEach(s=>sectionObserver.observe(s));
-}
+  function showToast(msg){
+    if(!toast) return;
+    toast.textContent=msg;
+    toast.classList.add('show');
+    window.clearTimeout(toastTimer);
+    toastTimer=window.setTimeout(function(){toast.classList.remove('show');},2400);
+  }
 
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}))}
+  function closeFeature(){
+    if(!featureModal) return;
+    featureModal.classList.remove('open');
+    if(!modal || !modal.classList.contains('open')) lockPage(false);
+  }
+
+  function openFeature(type){
+    if(!featureModal) return;
+    var data={
+      whatsapp:{icon:'◉',title:'WhatsApp povezava',text:'Produkcijska verzija lahko odpre WhatsApp pogovor z že pripravljenimi podatki vozila in izbrano storitvijo.',button:'Preizkusi demo'},
+      gallery:{icon:'▣',title:'Galerija servisa',text:'Tukaj bodo fotografije delavnice, popravil, vozil in ekipe. Demo vas vrne na glavni vizual.',button:'Prikaži glavni vizual'},
+      admin:{icon:'▥',title:'Admin panel',text:'Admin lahko vsebuje rezervacije, stranke, vozila, statuse servisa, interne opombe in zgodovino povpraševanj.',button:'Preizkusi demo'}
+    }[type];
+    if(!data) return;
+
+    var ti=$('featureTitle'), tx=$('featureText'), ic=$('featureIcon'), ac=$('featureAction');
+    if(ti) ti.textContent=data.title;
+    if(tx) tx.textContent=data.text;
+    if(ic) ic.textContent=data.icon;
+    if(ac){
+      ac.textContent=data.button+' →';
+      ac.onclick=function(){
+        if(type==='gallery'){
+          closeFeature();
+          var home=$('domov');
+          if(home) home.scrollIntoView({behavior:'smooth'});
+          showToast('Galerija je pripravljena za dodajanje dejanskih fotografij.');
+        }else if(type==='whatsapp'){
+          showToast('WhatsApp integracija je pripravljena za priklop na potrjeno številko.');
+        }else{
+          showToast('Admin funkcionalnost je pripravljena za povezavo z bazo.');
+        }
+      };
+    }
+    featureModal.classList.add('open');
+    lockPage(true);
+  }
+
+  function runIntegration(type){
+    if(type==='booking'){ openOrder('Rezervacija termina','Redni servis'); return; }
+    if(type==='form'){ openOrder('Servisno povpraševanje','Diagnostika / popravilo'); return; }
+    if(type==='vehicle'){
+      openOrder('Vnos podatkov vozila','Redni servis');
+      window.setTimeout(function(){var x=$('fBrand');if(x)x.focus();},180);
+      return;
+    }
+    if(type==='vin'){
+      var section=$('rezervacija');
+      if(section) section.scrollIntoView({behavior:'smooth',block:'center'});
+      window.setTimeout(function(){var x=$('vinQuick');if(x)x.focus();showToast('Vnesite 17-mestni VIN in kliknite PREVERI.');},400);
+      return;
+    }
+    openFeature(type);
+  }
+
+  // One delegated click handler = reliable on iPhone and desktop, including dynamically styled elements.
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+
+    var close=t.closest('[data-close]');
+    if(close){ ev.preventDefault(); closeOrder(); return; }
+
+    var featureClose=t.closest('[data-feature-close]');
+    if(featureClose){ ev.preventDefault(); closeFeature(); return; }
+
+    var opener=t.closest('[data-open]');
+    if(opener){
+      ev.preventDefault();
+      openOrder(opener.getAttribute('data-open') || 'Servisno povpraševanje', opener.getAttribute('data-service') || '');
+      return;
+    }
+
+    var card=t.closest('.service-card');
+    if(card){
+      var btn=card.querySelector('[data-open]');
+      if(btn) openOrder(btn.getAttribute('data-open') || 'Servisno povpraševanje', btn.getAttribute('data-service') || '');
+      return;
+    }
+
+    var integration=t.closest('.integration-option');
+    if(integration){ ev.preventDefault(); runIntegration(integration.getAttribute('data-demo')); return; }
+
+    var faq=t.closest('.faq-q');
+    if(faq){ ev.preventDefault(); faq.parentElement.classList.toggle('open'); return; }
+
+    if(t.closest('#menuBtn')){
+      ev.preventDefault();
+      if(navLinks) navLinks.classList.toggle('open');
+      return;
+    }
+
+    var contact=t.closest('.contact-row');
+    if(contact){
+      var rows=document.querySelectorAll('.contact-row');
+      if(contact===rows[0]) window.open('https://www.google.com/maps/search/?api=1&query=Ulica+Staneta+Bokala+5%2C+4270+Jesenice','_blank');
+      else if(contact===rows[1]) window.location.href='mailto:dbsservisvozil@gmail.com';
+    }
+  },false);
+
+  document.addEventListener('keydown',function(ev){
+    if(ev.key==='Escape'){ closeOrder(); closeFeature(); }
+    if((ev.key==='Enter'||ev.key===' ') && ev.target.classList && ev.target.classList.contains('integration-option')){
+      ev.preventDefault(); runIntegration(ev.target.getAttribute('data-demo'));
+    }
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('#navLinks a'),function(a){
+    a.addEventListener('click',function(){ if(navLinks) navLinks.classList.remove('open'); });
+  });
+
+  var dateInput=$('fDate');
+  if(dateInput) dateInput.min=new Date().toISOString().slice(0,10);
+
+  function validVin(v){ return /^[A-HJ-NPR-Z0-9]{17}$/.test(String(v).toUpperCase()); }
+  var vinBtn=$('vinCheck');
+  if(vinBtn){
+    vinBtn.addEventListener('click',function(ev){
+      ev.preventDefault();
+      var input=$('vinQuick'), status=$('vinStatus');
+      var v=input ? input.value.trim().toUpperCase() : '';
+      if(input) input.value=v;
+      if(validVin(v)){
+        if(status){status.textContent='VIN format je veljaven. Za dejansko dekodiranje se priključi VIN API.';status.className='status ok';}
+        var formVin=$('fVin'); if(formVin) formVin.value=v;
+      }else{
+        if(status){status.textContent='VIN mora imeti 17 znakov in ne sme vsebovati I, O ali Q.';status.className='status bad';}
+      }
+    });
+  }
+
+  function val(id){
+    var el=$(id);
+    return el && typeof el.value==='string' && el.value.trim() ? el.value.trim() : '-';
+  }
+
+  function summary(){
+    return [
+      'DBS SERVIS D.O.O.',
+      'NOVO SERVISNO POVPRAŠEVANJE',
+      '',
+      'Ime / podjetje: '+val('fName'),
+      'Telefon: '+val('fPhone'),
+      'E-pošta: '+val('fEmail'),
+      'Želeni datum: '+val('fDate'),
+      '',
+      'Vrsta vozila: '+val('fType'),
+      'Znamka: '+val('fBrand'),
+      'Model: '+val('fModel'),
+      'Letnik: '+val('fYear'),
+      'Registracija: '+val('fPlate'),
+      'VIN: '+val('fVin'),
+      'Kilometri: '+val('fKm'),
+      '',
+      'Storitev: '+val('fService'),
+      '',
+      'Opis: '+val('fProblem')
+    ].join('\n');
+  }
+
+  var copyBtn=$('copyBtn');
+  if(copyBtn){
+    copyBtn.addEventListener('click',function(){
+      var txt=summary();
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){showToast('Podatki so kopirani.');}).catch(function(){window.prompt('Kopirajte podatke:',txt);});
+      }else window.prompt('Kopirajte podatke:',txt);
+    });
+  }
+
+  var form=$('serviceForm');
+  if(form){
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      if(!form.reportValidity()) return;
+      var subject='DBS Servis – '+val('fService')+' – '+val('fBrand')+' '+val('fModel');
+      var body=summary()+'\n\nPriloge dodajte ročno pred pošiljanjem.';
+      window.location.href='mailto:dbsservisvozil@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    });
+  }
+
+  // Scroll progress + active menu.
+  var progress=$('scrollProgress');
+  function updateProgress(){
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    var pct=max>0?(window.scrollY/max)*100:0;
+    if(progress) progress.style.width=Math.max(0,Math.min(100,pct))+'%';
+  }
+  window.addEventListener('scroll',updateProgress,{passive:true});
+  updateProgress();
+
+  var anchors=Array.prototype.slice.call(document.querySelectorAll('#navLinks a[href^="#"]'));
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      var visible=entries.filter(function(x){return x.isIntersecting;}).sort(function(a,b){return b.intersectionRatio-a.intersectionRatio;})[0];
+      if(!visible) return;
+      anchors.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+visible.target.id);});
+    },{rootMargin:'-28% 0px -58% 0px',threshold:[0,.15,.35,.6]});
+    anchors.forEach(function(a){var sec=document.querySelector(a.getAttribute('href'));if(sec)obs.observe(sec);});
+  }
+
+  // Force the current service worker to re-check immediately.
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){
+      navigator.serviceWorker.register('/sw.js?v=5',{updateViaCache:'none'}).then(function(reg){reg.update();}).catch(function(){});
+    });
+  }
+
+  window.DBS_DEMO={openOrder:openOrder,closeOrder:closeOrder};
+})();
 </script>
 </body></html>
